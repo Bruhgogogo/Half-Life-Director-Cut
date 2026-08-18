@@ -1,0 +1,56 @@
+============================================
+ASSET INFORMATION
+============================================
+Struct:
+Asset Name:     [asset name]
+Original author: [author or team name]
+Author profile: [link to author's profile]
+Usage in mod:   [describe how it's used and whether modified]
+License status: [explicit permission obtained / unable to contact / follow author's license / etc.]
+
+
+
+Asset Name:          HEV Barney (barney_hev.mdl)
+Original author: Azure Sheep & PoV Team
+Author profile: https://www.moddb.com/members/davlevels
+Usage in mod:  Visual model only, no modification
+License status: Unable to obtain permission (author inactive)
+
+Asset Name: Half-Life 1 SDK (GoldSrc Engine Assets)
+Original author: Valve Software
+Author profile: https://www.valvesoftware.com/
+Usage in mod: Core engine assets (models, sprites, sounds, maps) used as base; some may be modified or repurposed
+License status: Follows original SDK license (requires credit and prohibits commercial use without permission)
+
+Asset Name: Half-Life 1 (Base Game Content)
+Original author: Valve Software
+Author profile: https://www.valvesoftware.com/
+Usage in mod: Reference assets for balance, design, and visual consistency; some may be modified or repurposed
+License status: Follows original EULA (assets not included in mod distribution; mod requires original game)
+
+Asset Name: Half-Life High Definition Pack (HD Models)
+Original author: Gearbox Software
+Author profile: https://www.gearboxsoftware.com/
+Usage in mod: Visual model replacements; some may be modified or repurposed
+License status: Follows original HD Pack license (assets included with Half-Life expansions; requires original game; credit to Gearbox Software)
+
+============================================
+DISCLAIMER & LICENSE
+============================================
+
+1. For the assets:
+   If you are the original author and have any concerns — removal,
+   credit adjustment, or otherwise — please contact me and I will
+   address it promptly.
+
+2. For my code and original work:
+   All original code in this project is written by me with AI-assisted development.
+
+3. For other creators (my code only):
+   You are free to distribute, modify, and republish my code,
+   provided you retain the following credit:
+   "Original code by [Bruhgogogo]"
+
+============================================
+Contact: SCPMTFxiaodui123@outlook.com
+============================================

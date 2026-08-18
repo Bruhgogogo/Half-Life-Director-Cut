@@ -1,0 +1,28 @@
+﻿  barney.cpp
+F:\Projects\halflife\engine\edict.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../dlls/barney.cpp”)
+  
+F:\Projects\halflife\dlls\util.h(254,14): warning C4091: “typedef ”: 没有声明变量时忽略“<unnamed-enum-point_hull>”的左侧
+  (编译源文件“../../dlls/barney.cpp”)
+  
+F:\Projects\halflife\dlls\weapons.h(147,9): warning C4005: “MP5_DEFAULT_AMMO”: 宏重定义
+  (编译源文件“../../dlls/barney.cpp”)
+      F:\Projects\halflife\dlls\weapons.h(130,9):
+      参见“MP5_DEFAULT_AMMO”的前一个定义
+  
+LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
+    正在创建库 Release\hldll\hl.lib 和对象 Release\hldll\hl.exp
+  正在生成代码
+  17 of 3901 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    54 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  hldll.vcxproj -> F:\Projects\halflife\projects\vs2019\Release\hldll\hl.dll
+  Performing Post-Build Event
+  系统找不到指定的路径。
+  已复制         0 个文件。
+  系统找不到指定的路径。
+  已复制         0 个文件。
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppCommon.targets(166,5): error MSB3073: 命令“call ..\..\filecopy.bat F:\Projects\halflife\projects\vs2019\Release\hldll\hl.dll ..\..\..\game\mod\dlls\hl.dll
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppCommon.targets(166,5): error MSB3073: call ..\..\filecopy.bat F:\Projects\halflife\projects\vs2019\Release\hldll\\hl.pdb ..\..\..\game\mod\dlls\hl.pdb
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppCommon.targets(166,5): error MSB3073: :VCEnd”已退出，代码为 1。
