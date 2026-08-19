@@ -13,7 +13,10 @@ An unofficial enhancement mod for Half-Life 1. Restores cut content, expands lor
 
 ## Installation
 
-[Your installation instructions here]
+Make sure you have original half-life game
+Download directorcut from release
+Drag it into the folder named Half-Life on steam or Xash3D if you using it
+Add arg -game directorcut and start your game
 
 ---
 
