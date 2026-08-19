@@ -10,7 +10,7 @@ License status: [explicit permission obtained / unable to contact / follow autho
 
 
 
-Asset Name:          HEV Barney (barney_hev.mdl)
+Asset Name: HEV Barney (barney_hev.mdl)
 Original author: Azure Sheep & PoV Team
 Author profile: https://www.moddb.com/members/davlevels
 Usage in mod:  Visual model only, no modification
