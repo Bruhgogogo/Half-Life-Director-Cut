@@ -20,7 +20,7 @@ Asset Name: Half-Life 1 SDK (GoldSrc Engine Assets)
 Original author: Valve Software
 Author profile: https://www.valvesoftware.com/
 Usage in mod: Core engine assets (models, sprites, sounds, maps) used as base; some may be modified or repurposed
-License status: Follows original SDK license (requires credit and prohibits commercial use without permission)
+License status: Follows original SDK license (requires credit and prohibits commercial use without permission). Full license terms are in the accompanying license.txt file.
 
 Asset Name: Half-Life 1 (Base Game Content)
 Original author: Valve Software
