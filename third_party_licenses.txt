@@ -35,22 +35,5 @@ Usage in mod: Visual model replacements; some may be modified or repurposed
 License status: Follows original HD Pack license (assets included with Half-Life expansions; requires original game; credit to Gearbox Software)
 
 ============================================
-DISCLAIMER & LICENSE
-============================================
-
-1. For the assets:
-   If you are the original author and have any concerns — removal,
-   credit adjustment, or otherwise — please contact me and I will
-   address it promptly.
-
-2. For my code and original work:
-   All original code in this project is written by me with AI-assisted development.
-
-3. For other creators (my code only):
-   You are free to distribute, modify, and republish my code,
-   provided you retain the following credit:
-   "Original code by [Bruhgogogo]"
-
-============================================
 Contact: SCPMTFxiaodui123@outlook.com
 ============================================
