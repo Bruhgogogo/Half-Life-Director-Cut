@@ -69,7 +69,7 @@ const float BARNEY_SHOTGUN_SURVICE_CHANCE = 0.6f;
 
 constexpr float BARNEY_HEV_DEAD_CHANCE = 0.1f;
 
-constexpr float BARNEY_SHOTGUN_COOLDOWN = 0.25f; //I was too tired to adjust animation
+constexpr float BARNEY_SHOTGUN_COOLDOWN = 0.3f; //I was too tired to adjust animation
 
 // Safe to expanded this if is not enough
 const int MAX_HEV_VOICE_WORDS = 64;
@@ -144,6 +144,8 @@ public:
 	void HEVSound(int bitsDamageType);
 
 	void KeyValue(KeyValueData* pkvd) override;
+
+	BOOL IsBarneyFriendly() { return m_bEnemyToPlayer; }
 private:
 	BOOL m_fGunDrawn;
 	float m_painTime;
@@ -153,11 +155,13 @@ private:
 	BOOL m_lastAttackCheck;
 	float m_flPlayerDamage; // how much pain has the player inflicted on me?
 
-	enum GuardTypes : int { 
+	BOOL m_bEnemyToPlayer; // If TRUE, Barney will attack players and other hostile entities
+
+	enum GuardTypes : int {
 		NA = 0,
-		HEV = 1, 
-		MP5 = 2, 
-		SHOTGUN = 3, 
+		HEV = 1,
+		MP5 = 2,
+		SHOTGUN = 3,
 		ORIGINAL = 4
 	};
 
@@ -179,6 +183,7 @@ TYPEDESCRIPTION CBarney::m_SaveData[] =
 	DEFINE_FIELD(CBarney, m_lastAttackCheck, FIELD_BOOLEAN),
 	DEFINE_FIELD(CBarney, m_flPlayerDamage, FIELD_FLOAT),
 	DEFINE_FIELD(CBarney, barneyType, FIELD_INTEGER),
+	DEFINE_FIELD(CBarney, m_bEnemyToPlayer, FIELD_BOOLEAN),
 };
 
 IMPLEMENT_SAVERESTORE(CBarney, CTalkMonster);
@@ -300,6 +305,11 @@ void CBarney::KeyValue(KeyValueData* pkvd)
 		overrideType = static_cast<GuardTypes>(atoi(pkvd->szValue));
 		pkvd->fHandled = TRUE;
 	}
+	else if (FStrEq(pkvd->szKeyName, "is_enemy_to_player"))
+	{
+		m_bEnemyToPlayer = static_cast<BOOL>(atoi(pkvd->szValue));
+		pkvd->fHandled = TRUE;
+	}
 	else
 	{
 		CTalkMonster::KeyValue(pkvd);
@@ -349,6 +359,10 @@ int CBarney::ISoundMask()
 //=========================================================
 int CBarney::Classify()
 {
+	// If enemy to player, treat as hostile monster
+	if (m_bEnemyToPlayer)
+		return CLASS_ALIEN_MONSTER;
+
 	return CLASS_PLAYER_ALLY;
 }
 
@@ -571,7 +585,16 @@ void CBarney::Spawn()
 	m_afCapability = bits_CAP_HEAR | bits_CAP_TURN_HEAD | bits_CAP_DOORS_GROUP;
 
 	MonsterInit();
-	SetUse(&CBarney::FollowerUse);
+
+	// Only allow following if Barney is a player ally
+	if (!m_bEnemyToPlayer)
+	{
+		SetUse(&CBarney::FollowerUse);
+	}
+	else
+	{
+		SetUse(NULL);
+	}
 }
 
 //=========================================================
@@ -717,11 +740,28 @@ int CBarney::TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float f
 			// If the player was facing directly at me, or I'm already suspicious, get mad
 			if ((m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing(pevAttacker, pev->origin))
 			{
-				// Alright, now I'm pissed!
-				PlaySentence("BA_MAD", 4.0f, VOL_NORM, ATTN_NORM);
+				// If Barney is a player ally, getting shot by player makes him hostile
+				if (!m_bEnemyToPlayer)
+				{
+					// Alright, now I'm pissed! Turn on the player
+					m_bEnemyToPlayer = TRUE;
+					PlaySentence("BA_MAD", 4.0f, VOL_NORM, ATTN_NORM);
 
-				Remember(bits_MEMORY_PROVOKED);
-				StopFollowing(TRUE);
+					Remember(bits_MEMORY_PROVOKED);
+					StopFollowing(TRUE);
+
+					// Force enemy to be the player who shot us
+					CBaseEntity* pAttacker = CBaseEntity::Instance(pevAttacker);
+					if (pAttacker)
+					{
+						m_hEnemy = pAttacker;
+					}
+				}
+				else
+				{
+					// Already hostile, just play the mad sound
+					PlaySentence("BA_MAD", 4.0f, VOL_NORM, ATTN_NORM);
+				}
 			}
 			else
 			{
@@ -825,7 +865,7 @@ void CBarney::Killed(entvars_t* pevAttacker, int iGib)
 			DropItem("weapon_shotgun", vecGunPos, vecGunAngles);
 			break;
 		}
-		
+
 	}
 
 	SetUse(NULL);
@@ -934,7 +974,8 @@ Schedule_t* CBarney::GetSchedule()
 			return GetScheduleOfType(SCHED_SMALL_FLINCH);
 		}
 
-		if (m_hEnemy == NULL && IsFollowing())
+		// Only allow following behavior if Barney is a player ally
+		if (m_hEnemy == NULL && IsFollowing() && !m_bEnemyToPlayer)
 		{
 			if (!m_hTargetEnt->IsAlive())
 			{

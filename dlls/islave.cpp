@@ -39,6 +39,11 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 
 #define		ISLAVE_MAX_BEAMS	8
 
+//=========================================================
+// Follower constants
+//=========================================================
+#define		VORT_FOLLOW_RANGE	128.0f
+
 class CISlave : public CSquadMonster
 {
 public:
@@ -77,6 +82,21 @@ public:
 	void ZapBeam(int side);
 	void BeamGlow(void);
 
+	void KeyValue(KeyValueData* pkvd) override;
+	void DeclineFollowing(void);
+	void FollowerUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
+
+	void StartFollowing(CBaseEntity* pLeader);
+	BOOL IsFollowing(void);
+	void StopFollowing(BOOL bClearSchedule);
+
+	int ObjectCaps() override
+	{
+		if (m_bFriendly)
+			return CSquadMonster::ObjectCaps() | FCAP_IMPULSE_USE;
+		return CSquadMonster::ObjectCaps();
+	}
+
 	int m_iBravery;
 
 	CBeam* m_pBeam[ISLAVE_MAX_BEAMS];
@@ -87,6 +107,10 @@ public:
 	int	m_voicePitch;
 
 	EHANDLE m_hDead;
+
+	BOOL m_bFriendly;			// If TRUE, Vortigaunt is friendly to player and player allies
+	BOOL m_fGunDrawn;			// For animation state (always TRUE for vort, but kept for consistency)
+	float m_flPlayerDamage;		// How much pain has the player inflicted on me?
 
 	static const char* pAttackHitSounds[];
 	static const char* pAttackMissSounds[];
@@ -109,6 +133,11 @@ TYPEDESCRIPTION	CISlave::m_SaveData[] =
 
 	DEFINE_FIELD(CISlave, m_hDead, FIELD_EHANDLE),
 
+	DEFINE_FIELD(CISlave, m_bFriendly, FIELD_BOOLEAN),
+	DEFINE_FIELD(CISlave, m_fGunDrawn, FIELD_BOOLEAN),
+	DEFINE_FIELD(CISlave, m_flPlayerDamage, FIELD_FLOAT),
+
+	DEFINE_FIELD(CISlave, m_hTargetEnt, FIELD_EHANDLE),
 };
 
 IMPLEMENT_SAVERESTORE(CISlave, CSquadMonster);
@@ -141,28 +170,96 @@ const char* CISlave::pDeathSounds[] =
 	"aslave/slv_die2.wav",
 };
 
+void CISlave::KeyValue(KeyValueData* pkvd)
+{
+	if (FStrEq(pkvd->szKeyName, "friend_to_player"))
+	{
+		m_bFriendly = static_cast<BOOL>(atoi(pkvd->szValue));
+		pkvd->fHandled = TRUE;
+	}
+	else
+	{
+		CSquadMonster::KeyValue(pkvd);
+	}
+}
+
 //=========================================================
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
 int	CISlave::Classify(void)
 {
+	// If friendly to player, treat as player ally
+	if (m_bFriendly)
+		return CLASS_PLAYER_ALLY;
+
 	return	CLASS_ALIEN_MILITARY;
 }
 
 
 int CISlave::IRelationship(CBaseEntity* pTarget)
 {
+	// Friendly vortigaunts are allied with player and player allies
+	if (m_bFriendly)
+	{
+		// Don't attack player
+		if (pTarget->IsPlayer())
+			return R_AL;
+
+		// Don't attack other friendly vortigaunts
+		if (FClassnameIs(pTarget->pev, "monster_alien_slave") ||
+			FClassnameIs(pTarget->pev, "monster_vortigaunt"))
+		{
+			CISlave* pVort = (CISlave*)pTarget;
+			if (pVort && pVort->m_bFriendly)
+				return R_AL;
+		}
+
+		// Don't attack Barney (friendly version)
+		if (FClassnameIs(pTarget->pev, "monster_barney"))
+		{
+			// Barney is CLASS_PLAYER_ALLY when friendly, CLASS_ALIEN_MONSTER when hostile
+			if (pTarget->Classify() == CLASS_ALIEN_MONSTER)
+			{
+				return R_HT;  // Hostile Barney
+			}
+			// Friendly Barney or unknown
+			return R_AL;
+		}
+
+		// Don't attack scientists or other player allies
+		if (pTarget->Classify() == CLASS_PLAYER_ALLY)
+			return R_AL;
+
+		// Attack unfriendly vortigaunts
+		if (FClassnameIs(pTarget->pev, "monster_alien_slave") ||
+			FClassnameIs(pTarget->pev, "monster_vortigaunt"))
+		{
+			CISlave* pVort = (CISlave*)pTarget;
+			if (pVort && !pVort->m_bFriendly)
+				return R_HT;
+		}
+	}
+
+	// If provoked by player, become hostile
+	if ((pTarget->IsPlayer()) && (m_afMemory & bits_MEMORY_PROVOKED))
+		return R_HT;
+
+	// Default behavior for hostile vortigaunts
 	if ((pTarget->IsPlayer()))
 		if ((pev->spawnflags & SF_MONSTER_WAIT_UNTIL_PROVOKED) && !(m_afMemory & bits_MEMORY_PROVOKED))
 			return R_NO;
-	return CBaseMonster::IRelationship(pTarget);
+
+	return CSquadMonster::IRelationship(pTarget);
 }
 
 
 void CISlave::CallForHelp(char* szClassname, float flDist, EHANDLE hEnemy, Vector& vecLocation)
 {
 	// ALERT( at_aiconsole, "help " );
+
+	// Friendly vortigaunts only call for help from other friendly vortigaunts
+	// Hostile vortigaunts call for help from other hostile vortigaunts
 
 	// skip ones not on my netname
 	if (FStringNull(pev->netname))
@@ -178,8 +275,13 @@ void CISlave::CallForHelp(char* szClassname, float flDist, EHANDLE hEnemy, Vecto
 			CBaseMonster* pMonster = pEntity->MyMonsterPointer();
 			if (pMonster)
 			{
-				pMonster->m_afMemory |= bits_MEMORY_PROVOKED;
-				pMonster->PushEnemy(hEnemy, vecLocation);
+				// Only call for help from same faction
+				CISlave* pVort = (CISlave*)pMonster;
+				if (pVort && pVort->m_bFriendly == m_bFriendly)
+				{
+					pMonster->m_afMemory |= bits_MEMORY_PROVOKED;
+					pMonster->PushEnemy(hEnemy, vecLocation);
+				}
 			}
 		}
 	}
@@ -271,6 +373,7 @@ int CISlave::ISoundMask(void)
 void CISlave::Killed(entvars_t* pevAttacker, int iGib)
 {
 	ClearBeams();
+	SetUse(NULL);
 	CSquadMonster::Killed(pevAttacker, iGib);
 }
 
@@ -409,6 +512,17 @@ void CISlave::HandleAnimEvent(MonsterEvent_t* pEvent)
 			{
 				CBaseEntity* pNew = Create("monster_alien_slave", m_hDead->pev->origin, m_hDead->pev->angles);
 				CBaseMonster* pNewMonster = pNew->MyMonsterPointer();
+				// Set the new vortigaunt to have the same friendliness as the one that revived it
+				CISlave* pNewVort = (CISlave*)pNewMonster;
+				if (pNewVort)
+				{
+					pNewVort->m_bFriendly = m_bFriendly;
+					// If friendly, enable follower use
+					if (m_bFriendly)
+					{
+						pNewVort->SetUse(&CISlave::FollowerUse);
+					}
+				}
 				pNew->pev->spawnflags |= 1;
 				WackBeam(-1, pNew);
 				WackBeam(1, pNew);
@@ -459,11 +573,20 @@ BOOL CISlave::CheckRangeAttack1(float flDot, float flDist)
 		return FALSE;
 	}
 
+	// Friendly vortigaunts won't attack player allies
+	if (m_bFriendly && m_hEnemy != NULL)
+	{
+		if (m_hEnemy->IsPlayer())
+			return FALSE;
+		if (m_hEnemy->Classify() == CLASS_PLAYER_ALLY)
+			return FALSE;
+	}
+
 	return CSquadMonster::CheckRangeAttack1(flDot, flDist);
 }
 
 //=========================================================
-// CheckRangeAttack2 - check bravery and try to resurect dead comrades
+// CheckRangeAttack2 - check bravery and try to resurrect dead comrades
 //=========================================================
 BOOL CISlave::CheckRangeAttack2(float flDot, float flDist)
 {
@@ -490,8 +613,13 @@ BOOL CISlave::CheckRangeAttack2(float flDot, float flDist)
 				float d = (pev->origin - pEntity->pev->origin).Length();
 				if (d < flDist)
 				{
-					m_hDead = pEntity;
-					flDist = d;
+					// Only resurrect comrades with same friendliness
+					CISlave* pVort = (CISlave*)pEntity;
+					if (pVort && pVort->m_bFriendly == m_bFriendly)
+					{
+						m_hDead = pEntity;
+						flDist = d;
+					}
 				}
 				m_iBravery--;
 			}
@@ -526,6 +654,9 @@ void CISlave::Spawn()
 {
 	Precache();
 
+	m_fGunDrawn = TRUE;
+	m_flPlayerDamage = 0;
+
 	SET_MODEL(ENT(pev), "models/islave.mdl");
 	UTIL_SetSize(pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX);
 
@@ -542,6 +673,16 @@ void CISlave::Spawn()
 	m_voicePitch = RANDOM_LONG(85, 110);
 
 	MonsterInit();
+
+	// Only allow following if Vortigaunt is friendly
+	if (m_bFriendly)
+	{
+		SetUse(&CISlave::FollowerUse);
+	}
+	else
+	{
+		SetUse(NULL);
+	}
 }
 
 //=========================================================
@@ -587,6 +728,28 @@ int CISlave::TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float f
 	if ((bitsDamageType & DMG_SLASH) && pevAttacker && IRelationship(Instance(pevAttacker)) < R_DL)
 		return 0;
 
+	CBaseEntity* pAttacker = CBaseEntity::Instance(pevAttacker);
+
+	// If friendly and attacked by player, become hostile
+	if (m_bFriendly && pAttacker && pAttacker->IsPlayer())
+	{
+		m_flPlayerDamage += flDamage;
+		m_afMemory |= bits_MEMORY_PROVOKED;
+
+		// Turn hostile to player
+		m_bFriendly = FALSE;
+		m_hEnemy = pAttacker;
+		SetUse(NULL);
+
+		// Immediately flush the next attack time
+		m_flNextAttack = gpGlobals->time;
+
+		// Play pain sound
+		PainSound();
+
+		return CSquadMonster::TakeDamage(pevInflictor, pevAttacker, flDamage, bitsDamageType);
+	}
+
 	m_afMemory |= bits_MEMORY_PROVOKED;
 	return CSquadMonster::TakeDamage(pevInflictor, pevAttacker, flDamage, bitsDamageType);
 }
@@ -604,8 +767,6 @@ void CISlave::TraceAttack(entvars_t* pevAttacker, float flDamage, Vector vecDir,
 //=========================================================
 // AI Schedules Specific to this monster
 //=========================================================
-
-
 
 // primary range attack
 Task_t	tlSlaveAttack1[] =
@@ -629,28 +790,71 @@ Schedule_t	slSlaveAttack1[] =
 	},
 };
 
+//=========================================================
+// Follow schedule - Vortigaunt follows the player
+//=========================================================
+Task_t	tlVortFollow[] =
+{
+	{ TASK_MOVE_TO_TARGET_RANGE, VORT_FOLLOW_RANGE }, // Move within 128 units of target
+	{ TASK_SET_SCHEDULE, static_cast<float>(SCHED_TARGET_FACE) },
+};
+
+Schedule_t	slVortFollow[] =
+{
+	{
+		tlVortFollow,
+		ARRAYSIZE(tlVortFollow),
+		bits_COND_NEW_ENEMY |
+		bits_COND_LIGHT_DAMAGE |
+		bits_COND_HEAVY_DAMAGE |
+		bits_COND_HEAR_SOUND |
+		bits_COND_PROVOKED,
+		bits_SOUND_DANGER,
+		"VortFollow"
+	},
+};
+
+//=========================================================
+// Face target schedule - Vortigaunt faces the player
+//=========================================================
+Task_t	tlVortFaceTarget[] =
+{
+	{ TASK_SET_ACTIVITY, static_cast<float>(ACT_IDLE) },
+	{ TASK_FACE_TARGET, 0.0f },
+	{ TASK_SET_ACTIVITY, static_cast<float>(ACT_IDLE) },
+	{ TASK_SET_SCHEDULE, static_cast<float>(SCHED_TARGET_CHASE) },
+};
+
+Schedule_t	slVortFaceTarget[] =
+{
+	{
+		tlVortFaceTarget,
+		ARRAYSIZE(tlVortFaceTarget),
+		bits_COND_NEW_ENEMY |
+		bits_COND_LIGHT_DAMAGE |
+		bits_COND_HEAVY_DAMAGE |
+		bits_COND_HEAR_SOUND |
+		bits_COND_PROVOKED,
+		bits_SOUND_DANGER,
+		"VortFaceTarget"
+	},
+};
 
 DEFINE_CUSTOM_SCHEDULES(CISlave)
 {
 	slSlaveAttack1,
+		slVortFollow,
+		slVortFaceTarget,
 };
 
 IMPLEMENT_CUSTOM_SCHEDULES(CISlave, CSquadMonster);
 
-
 //=========================================================
+// GetSchedule
 //=========================================================
 Schedule_t* CISlave::GetSchedule(void)
 {
 	ClearBeams();
-
-	/*
-		if (pev->spawnflags)
-		{
-			pev->spawnflags = 0;
-			return GetScheduleOfType( SCHED_RELOAD );
-		}
-	*/
 
 	if (HasConditions(bits_COND_HEAR_SOUND))
 	{
@@ -668,11 +872,21 @@ Schedule_t* CISlave::GetSchedule(void)
 	switch (m_MonsterState)
 	{
 	case MONSTERSTATE_COMBAT:
+	{
 		// dead enemy
 		if (HasConditions(bits_COND_ENEMY_DEAD))
 		{
-			// call base class, all code to handle dead enemies is centralized there.
 			return CBaseMonster::GetSchedule();
+		}
+
+		if (HasConditions(bits_COND_CAN_RANGE_ATTACK1))
+		{
+			return GetScheduleOfType(SCHED_RANGE_ATTACK1);
+		}
+
+		if (HasConditions(bits_COND_CAN_MELEE_ATTACK1))
+		{
+			return GetScheduleOfType(SCHED_MELEE_ATTACK1);
 		}
 
 		if (pev->health < 20 || m_iBravery < 0)
@@ -686,13 +900,40 @@ Schedule_t* CISlave::GetSchedule(void)
 				}
 				if (HasConditions(bits_COND_SEE_ENEMY) && HasConditions(bits_COND_ENEMY_FACING_ME))
 				{
-					// ALERT( at_console, "exposed\n");
 					return GetScheduleOfType(SCHED_TAKE_COVER_FROM_ENEMY);
 				}
 			}
 		}
+
+		if (HasConditions(bits_COND_SEE_ENEMY))
+		{
+			return GetScheduleOfType(SCHED_CHASE_ENEMY);
+		}
 		break;
 	}
+
+	case MONSTERSTATE_ALERT:
+	case MONSTERSTATE_IDLE:
+	{
+		// If following, return follow schedule
+		if (IsFollowing() && m_hTargetEnt != NULL)
+		{
+			if (!m_hTargetEnt->IsAlive())
+			{
+				StopFollowing(FALSE);
+				break;
+			}
+			else
+			{
+				// Simply return the follow/face schedule
+				// No CLIENT_PUSH or MOVE_AWAY checks for vortigaunts
+				return GetScheduleOfType(SCHED_TARGET_FACE);
+			}
+		}
+		break;
+	}
+	}
+
 	return CSquadMonster::GetSchedule();
 }
 
@@ -704,17 +945,22 @@ Schedule_t* CISlave::GetScheduleOfType(int Type)
 	case SCHED_FAIL:
 		if (HasConditions(bits_COND_CAN_MELEE_ATTACK1))
 		{
-			return CSquadMonster::GetScheduleOfType(SCHED_MELEE_ATTACK1); ;
+			return CSquadMonster::GetScheduleOfType(SCHED_MELEE_ATTACK1);
 		}
 		break;
 	case SCHED_RANGE_ATTACK1:
 		return slSlaveAttack1;
 	case SCHED_RANGE_ATTACK2:
 		return slSlaveAttack1;
+	case SCHED_TARGET_CHASE:
+		return slVortFollow;  // Use the follow schedule
+	case SCHED_TARGET_FACE:
+		return slVortFaceTarget;  // Use the face target schedule
+	case SCHED_IDLE_STAND:
+		return CSquadMonster::GetScheduleOfType(SCHED_IDLE_STAND);
 	}
 	return CSquadMonster::GetScheduleOfType(Type);
 }
-
 
 //=========================================================
 // ArmBeam - small beam from arm to nearby geometry
@@ -863,4 +1109,105 @@ void CISlave::ClearBeams()
 	pev->skin = 0;
 
 	STOP_SOUND(ENT(pev), CHAN_WEAPON, "debris/zap4.wav");
+}
+
+//=========================================================
+// FollowerUse - Allow player to command friendly vortigaunt
+//=========================================================
+void CISlave::FollowerUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
+{
+	// Only players can use friendly vortigaunts
+	if (!pActivator || !pActivator->IsPlayer())
+		return;
+
+	// Only friendly vortigaunts can be used
+	if (!m_bFriendly)
+		return;
+
+	// Toggle following behavior
+	if (!IsFollowing())
+	{
+		// Start following the player
+		StartFollowing(pActivator);
+		// Play a friendly sound
+		IdleSound();
+	}
+	else
+	{
+		// Stop following
+		StopFollowing(FALSE);
+		// Play a sound indicating stop
+		IdleSound();
+	}
+}
+
+//=========================================================
+// DeclineFollowing - Called when follower can't follow
+//=========================================================
+void CISlave::DeclineFollowing(void)
+{
+	// Play a sound indicating decline
+	IdleSound();
+}
+
+//=========================================================
+// StartFollowing - Begin following a leader
+//=========================================================
+void CISlave::StartFollowing(CBaseEntity* pLeader)
+{
+	if (pLeader == NULL)
+		return;
+
+	// Set the target to follow
+	m_hTargetEnt = pLeader;
+
+	// Set monster state to alert so it stays aware
+	if (m_MonsterState == MONSTERSTATE_IDLE)
+	{
+		SetState(MONSTERSTATE_ALERT);
+	}
+
+	// Clear any existing enemy
+	m_hEnemy = NULL;
+
+	// Set the schedule to follow
+	ChangeSchedule(GetScheduleOfType(SCHED_TARGET_CHASE));
+}
+
+//=========================================================
+// IsFollowing - Check if currently following a leader
+//=========================================================
+BOOL CISlave::IsFollowing(void)
+{
+	// Check if we have a valid target and we're friendly
+	if (m_hTargetEnt != NULL && m_bFriendly)
+	{
+		return TRUE;
+	}
+	return FALSE;
+}
+
+//=========================================================
+// StopFollowing - Stop following the current leader
+//=========================================================
+void CISlave::StopFollowing(BOOL bClearSchedule)
+{
+	// Clear the target
+	m_hTargetEnt = NULL;
+
+	// Reset enemy if we have one
+	if (m_hEnemy != NULL)
+	{
+		SetState(MONSTERSTATE_COMBAT);
+	}
+	else
+	{
+		SetState(MONSTERSTATE_IDLE);
+	}
+
+	// Optionally clear the schedule to force a reevaluation
+	if (bClearSchedule)
+	{
+		ChangeSchedule(GetScheduleOfType(SCHED_IDLE_STAND));
+	}
 }

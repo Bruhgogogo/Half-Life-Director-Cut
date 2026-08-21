@@ -1788,6 +1788,7 @@
 @PointClass base(Monster, Sequence) size(-16 -16 0, 16 16 72) studio("models/islave.mdl") = monster_alien_slave : "Vortigaunt" 
 [
 	netname(string) : "Squad Name"
+	friend_to_player(integer) : "FriendToPlayer" : 0
 	spawnflags(Flags) =
 	[
 		32 : "SquadLeader" : 0
@@ -1807,6 +1808,7 @@
 @PointClass base(Monster,TalkMonster, Sequence) size(-16 -16 0, 16 16 72) studio("models/barney.mdl") = monster_barney : "Barney" 
 [
     barney_type_override(integer) : "BarneyTypeOverride" : 0 : "Override Barney's special type"
+	is_enemy_to_player(integer) : "IsEnemyToPlayer" : 0 : "Is barney enemy to player"
 
 	sequence(Choices) : "Animation Sequence (editor)" : 0 =
 	[
@@ -1931,6 +1933,7 @@
 @PointClass base(Monster, Sequence) size(-16 -16 0, 16 16 36) studio("models/houndeye.mdl") = monster_houndeye : "Houndeye" 
 [
 	netname(string) : "Squad Name"
+	friend_to_player(integer) : "FriendToPlayer" : 0
 	spawnflags(Flags) =
 	[
 		32 : "SquadLeader" : 0
