@@ -30,7 +30,7 @@ Portions of this project were developed with AI-assisted tools. All AI-generated
 
 This mod includes or references assets from the following sources:
 
-- **HEV Barney (barney_hev.mdl)** – Azure Sheep & PoV Team (author inactive; used as-is)
+- **HEV Barney (barney_hev.mdl)** – Azure Sheep & PoV Team (non-commercial; used as-is)
 - **Half-Life 1 SDK** – Valve Software (used under SDK license; non-commercial, credit required)
 - **Half-Life 1 Base Game** – Valve Software (mod requires original game; assets not redistributed)
 - **Half-Life High Definition Pack** – Gearbox Software (optional HD models; credit to Gearbox)

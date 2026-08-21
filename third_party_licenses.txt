@@ -14,7 +14,7 @@ Asset Name: HEV Barney (barney_hev.mdl)
 Original author: Azure Sheep & PoV Team
 Author profile: https://www.moddb.com/members/davlevels
 Usage in mod:  Visual model only, no modification
-License status: Unable to obtain permission (author inactive)
+License status: Follow CC BY-NC license (requires credit and prohibits commercial use without permission)
 
 Asset Name: Half-Life 1 SDK (GoldSrc Engine Assets)
 Original author: Valve Software

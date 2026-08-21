@@ -69,6 +69,8 @@ const float BARNEY_SHOTGUN_SURVICE_CHANCE = 0.6f;
 
 constexpr float BARNEY_HEV_DEAD_CHANCE = 0.1f;
 
+constexpr float BARNEY_SHOTGUN_COOLDOWN = 0.25f; //I was too tired to adjust animation
+
 // Safe to expanded this if is not enough
 const int MAX_HEV_VOICE_WORDS = 64;
 
@@ -147,6 +149,7 @@ private:
 	float m_painTime;
 	float m_hevLastReport;
 	float m_checkAttackTime;
+	float m_shotgunCooldownTime;
 	BOOL m_lastAttackCheck;
 	float m_flPlayerDamage; // how much pain has the player inflicted on me?
 
@@ -172,6 +175,7 @@ TYPEDESCRIPTION CBarney::m_SaveData[] =
 	DEFINE_FIELD(CBarney, m_painTime, FIELD_TIME),
 	DEFINE_FIELD(CBarney, m_hevLastReport, FIELD_TIME),
 	DEFINE_FIELD(CBarney, m_checkAttackTime, FIELD_TIME),
+	DEFINE_FIELD(CBarney, m_shotgunCooldownTime, FIELD_TIME),
 	DEFINE_FIELD(CBarney, m_lastAttackCheck, FIELD_BOOLEAN),
 	DEFINE_FIELD(CBarney, m_flPlayerDamage, FIELD_FLOAT),
 	DEFINE_FIELD(CBarney, barneyType, FIELD_INTEGER),
@@ -373,16 +377,16 @@ void CBarney::SetYawSpeed()
 	switch (m_Activity)
 	{
 	case ACT_IDLE:
-		ys = 70;
-		break;
-	case ACT_WALK:
-		ys = 70;
-		break;
-	case ACT_RUN:
 		ys = 90;
 		break;
+	case ACT_WALK:
+		ys = 90;
+		break;
+	case ACT_RUN:
+		ys = 120;
+		break;
 	default:
-		ys = 70;
+		ys = 90;
 		break;
 	}
 
@@ -394,7 +398,7 @@ void CBarney::SetYawSpeed()
 //=========================================================
 BOOL CBarney::CheckRangeAttack1(float flDot, float flDist)
 {
-	if (flDist <= BARNEY_MAX_ATTACK_RANGE && flDot >= BARNEY_ATTACK_DOT_THRESHOLD)
+	if (flDist <= BARNEY_MAX_ATTACK_RANGE && flDot >= BARNEY_ATTACK_DOT_THRESHOLD && gpGlobals->time > m_shotgunCooldownTime)
 	{
 		if (gpGlobals->time > m_checkAttackTime)
 		{
@@ -409,6 +413,7 @@ BOOL CBarney::CheckRangeAttack1(float flDot, float flDist)
 		}
 		return m_lastAttackCheck;
 	}
+	if (barneyType == SHOTGUN) m_shotgunCooldownTime = gpGlobals->time + BARNEY_SHOTGUN_COOLDOWN;
 	return FALSE;
 }
 

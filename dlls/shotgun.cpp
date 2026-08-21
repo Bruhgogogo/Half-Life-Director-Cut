@@ -43,17 +43,29 @@ enum ShotgunAnim : int
 
 // Shotgun constants
 constexpr float SHOTGUN_PUMP_TIME = 0.5f;
-constexpr float SHOTGUN_FIRE_DELAY_PUMP = 0.75f;
-constexpr float SHOTGUN_FIRE_DELAY_SEMI = 0.2f;
+
+constexpr float SHOTGUN_FIRE_DELAY_PUMP = 0.7f;
+
+constexpr float SHOTGUN_FIRE_DELAY_SEMI = 0.25f;
+
 constexpr float SHOTGUN_IDLE_DELAY = 5.0f;
+
 constexpr float SHOTGUN_EMPTY_IDLE_DELAY = 0.75f;
+
 constexpr float SHOTGUN_RELOAD_START_DELAY = 0.6f;
+
 constexpr float SHOTGUN_RELOAD_SHELL_DELAY = 0.5f;
+
 constexpr float SHOTGUN_RELOAD_COOLDOWN = 1.0f;
+
 constexpr float SHOTGUN_PUMP_COCK_DELAY = 1.5f;
+
 constexpr int SHOTGUN_PELLETS_MP = 4;
+
 constexpr int SHOTGUN_PELLETS_SP = 6;
+
 constexpr float SHOTGUN_RANGE = 2048.0f;
+
 constexpr float SHOTGUN_SWITCH_DELAY = 0.2f;
 
 LINK_ENTITY_TO_CLASS(weapon_shotgun, CShotgun);
