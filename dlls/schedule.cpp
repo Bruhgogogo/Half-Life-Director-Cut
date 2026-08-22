@@ -54,7 +54,11 @@ void CBaseMonster::ClearSchedule(void)
 //=========================================================
 BOOL CBaseMonster::FScheduleDone(void)
 {
-    ASSERT(m_pSchedule != nullptr);
+    // Robust nullptr check before dereferencing m_pSchedule
+    if (m_pSchedule == nullptr)
+    {
+        return FALSE;
+    }
 
     return m_iScheduleIndex == m_pSchedule->cTasks;
 }
@@ -66,7 +70,12 @@ BOOL CBaseMonster::FScheduleDone(void)
 //=========================================================
 void CBaseMonster::ChangeSchedule(Schedule_t* pNewSchedule)
 {
-    ASSERT(pNewSchedule != nullptr);
+    // Robust nullptr check - if pNewSchedule is null, clear schedule and return
+    if (pNewSchedule == nullptr)
+    {
+        ClearSchedule();
+        return;
+    }
 
     m_pSchedule = pNewSchedule;
     m_iScheduleIndex = 0;
@@ -126,7 +135,13 @@ void CBaseMonster::ChangeSchedule(Schedule_t* pNewSchedule)
 //=========================================================
 void CBaseMonster::NextScheduledTask(void)
 {
-    ASSERT(m_pSchedule != nullptr);
+    // Robust nullptr check before dereferencing m_pSchedule
+    if (m_pSchedule == nullptr)
+    {
+        ClearSchedule();
+        SetConditions(bits_COND_SCHEDULE_DONE);
+        return;
+    }
 
     m_iTaskStatus = TASKSTATUS_NEW;
     m_iScheduleIndex++;
@@ -257,7 +272,13 @@ void CBaseMonster::MaintainSchedule(void)
         if (m_iTaskStatus == TASKSTATUS_NEW)
         {
             Task_t* pTask = GetTask();
-            ASSERT(pTask != nullptr);
+            // Robust nullptr check before dereferencing pTask
+            if (pTask == nullptr)
+            {
+                // No valid task - clear schedule and break out of loop
+                ClearSchedule();
+                break;
+            }
             TaskBegin();
             StartTask(pTask);
         }
@@ -275,8 +296,16 @@ void CBaseMonster::MaintainSchedule(void)
     if (TaskIsRunning())
     {
         Task_t* pTask = GetTask();
-        ASSERT(pTask != nullptr);
-        RunTask(pTask);
+        // Robust nullptr check before running task
+        if (pTask != nullptr)
+        {
+            RunTask(pTask);
+        }
+        else
+        {
+            // No valid task - clear schedule
+            ClearSchedule();
+        }
     }
 
     // UNDONE: We have to do this so that we have an animation to blend to if RunTask changes the animation
@@ -293,6 +322,13 @@ void CBaseMonster::MaintainSchedule(void)
 //=========================================================
 void CBaseMonster::RunTask(Task_t* pTask)
 {
+    // Robust nullptr check at function entry
+    if (pTask == nullptr)
+    {
+        ClearSchedule();
+        return;
+    }
+
     switch (pTask->iTask)
     {
     case TASK_TURN_RIGHT:
@@ -510,7 +546,7 @@ void CBaseMonster::RunTask(Task_t* pTask)
     break;
     case TASK_WAIT_FOR_SCRIPT:
     {
-        if (m_pCine->m_iDelay <= 0 && gpGlobals->time >= m_pCine->m_startTime)
+        if (m_pCine != nullptr && m_pCine->m_iDelay <= 0 && gpGlobals->time >= m_pCine->m_startTime)
         {
             TaskComplete();
             m_pCine->StartSequence(this, m_pCine->m_iszPlay, TRUE);
@@ -519,13 +555,27 @@ void CBaseMonster::RunTask(Task_t* pTask)
             pev->framerate = 1.0;
             // ALERT( at_aiconsole, "Script %s has begun for %s\n", STRING( m_pCine->m_iszPlay ), STRING(pev->classname) );
         }
+        else if (m_pCine == nullptr)
+        {
+            // Script controller is missing - fail the task
+            TaskFail();
+        }
         break;
     }
     case TASK_PLAY_SCRIPT:
     {
         if (m_fSequenceFinished)
         {
-            m_pCine->SequenceDone(this);
+            if (m_pCine != nullptr)
+            {
+                m_pCine->SequenceDone(this);
+            }
+            else
+            {
+                // Script controller is missing - complete task and clear schedule
+                TaskComplete();
+                ClearSchedule();
+            }
         }
         break;
     }
@@ -559,6 +609,13 @@ void CBaseMonster::SetTurnActivity(void)
 //=========================================================
 void CBaseMonster::StartTask(Task_t* pTask)
 {
+    // Robust nullptr check at function entry
+    if (pTask == nullptr)
+    {
+        TaskFail();
+        return;
+    }
+
     switch (pTask->iTask)
     {
     case TASK_TURN_RIGHT:
@@ -867,6 +924,11 @@ void CBaseMonster::StartTask(Task_t* pTask)
     }
     case TASK_MOVE_TO_TARGET_RANGE:
     {
+        if (m_hTargetEnt == nullptr)
+        {
+            TaskFail();
+            break;
+        }
         if ((m_hTargetEnt->pev->origin - pev->origin).Length() < 1)
             TaskComplete();
         else
@@ -882,6 +944,11 @@ void CBaseMonster::StartTask(Task_t* pTask)
     {
         Activity newActivity;
 
+        if (m_hTargetEnt == nullptr)
+        {
+            TaskFail();
+            break;
+        }
         if ((m_hTargetEnt->pev->origin - pev->origin).Length() < 1)
             TaskComplete();
         else
@@ -1239,13 +1306,18 @@ void CBaseMonster::StartTask(Task_t* pTask)
     }
     case TASK_WAIT_FOR_SCRIPT:
     {
-        if (m_pCine->m_iszIdle)
+        if (m_pCine != nullptr && m_pCine->m_iszIdle)
         {
             m_pCine->StartSequence(this, m_pCine->m_iszIdle, FALSE);
             if (FStrEq(STRING(m_pCine->m_iszIdle), STRING(m_pCine->m_iszPlay)))
             {
                 pev->framerate = 0;
             }
+        }
+        else if (m_pCine == nullptr)
+        {
+            // Script controller missing - fail the task
+            TaskFail();
         }
         else
             m_IdealActivity = ACT_IDLE;
@@ -1261,7 +1333,10 @@ void CBaseMonster::StartTask(Task_t* pTask)
     }
     case TASK_ENABLE_SCRIPT:
     {
-        m_pCine->DelayStart(0);
+        if (m_pCine != nullptr)
+        {
+            m_pCine->DelayStart(0);
+        }
         TaskComplete();
         break;
     }
@@ -1319,6 +1394,12 @@ void CBaseMonster::StartTask(Task_t* pTask)
 //=========================================================
 Task_t* CBaseMonster::GetTask(void)
 {
+    // Robust nullptr check before dereferencing m_pSchedule
+    if (m_pSchedule == nullptr)
+    {
+        return nullptr;
+    }
+
     if (m_iScheduleIndex < 0 || m_iScheduleIndex >= m_pSchedule->cTasks)
     {
         // m_iScheduleIndex is not within valid range for the monster's current schedule.

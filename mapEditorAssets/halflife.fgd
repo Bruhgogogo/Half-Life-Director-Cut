@@ -1780,6 +1780,7 @@
 @PointClass base(Monster, Sequence) size(-32 -32 0, 32 32 64) studio("models/agrunt.mdl") = monster_alien_grunt : "Alien Grunt" 
 [
 	netname(string) : "Squad Name"
+	friend_to_player(integer) : "FriendToPlayer" : 0
 	spawnflags(Flags) =
 	[
 		32 : "SquadLeader" : 0
@@ -1872,7 +1873,10 @@
 	netname(string) : "First node" : ""
 ]
 @PointClass base(Monster, Sequence) size(-16 -16 0, 16 16 72) studio("models/floater.mdl") = monster_bloater : "Bloater" []
-@PointClass base(Monster, Sequence) size(-32 -32 0, 32 32 64) studio("models/bullsquid.mdl") sequence(7) = monster_bullchicken : "BullChicken" []
+@PointClass base(Monster, Sequence) size(-32 -32 0, 32 32 64) studio("models/bullsquid.mdl") sequence(7) = monster_bullchicken : "BullChicken" 
+[
+	friend_to_player(integer) : "FriendToPlayer" : 0
+]
 @PointClass base(Monster, Sequence) size(-3 -3 0, 3 3 3) studio("models/roach.mdl") = monster_cockroach : "Cockroach" []
 @PointClass base(Monster, Sequence) size(-16 -16 0, 16 16 16) studio("models/aflock.mdl") = monster_flyer_flock : "Flock of Flyers" 
 [
