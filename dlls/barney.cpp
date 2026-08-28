@@ -31,14 +31,22 @@
 //=========================================================
 // Monster's Anim Events Go Here
 //=========================================================
-// first flag is barney dying for scripted sequences?
-#define		BARNEY_AE_DRAW		( 2 )
-#define		BARNEY_AE_SHOOT		( 3 )
-#define		BARNEY_AE_HOLSTER	( 4 )
 
-#define	BARNEY_BODY_GUNHOLSTERED	0
-#define	BARNEY_BODY_GUNDRAWN		1
-#define BARNEY_BODY_GUNGONE		2
+// first flag is barney dying for scripted sequences?
+constexpr int BARNEY_AE_DRAW				= 2;
+constexpr int BARNEY_AE_SHOOT				= 3;
+constexpr int BARNEY_AE_HOLSTER				= 4;
+
+constexpr int BARNEY_BODY_GUNHOLSTERED		= 0;
+constexpr int BARNEY_BODY_GUNDRAWN			= 1;
+constexpr int BARNEY_BODY_GUNGONE			= 2;
+
+enum class BarneyTypes : int {
+	BARNEY_TYPE_PISTOL	= 0,
+	BARNEY_TYPE_MP5		= 1,
+	BARNEY_TYPE_SHOTGUN = 2,
+	BARNEY_TYPE_HEV		= 3
+};
 
 class CBarney : public CTalkMonster
 {
@@ -48,9 +56,12 @@ public:
 	void SetYawSpeed( void );
 	int ISoundMask( void );
 	void BarneyFirePistol( void );
+	BOOL CanShoot();
 	void AlertSound( void );
 	int Classify( void );
 	void HandleAnimEvent( MonsterEvent_t *pEvent );
+	void KeyValue(KeyValueData* pkvd);
+	void Think();
 
 	void RunTask( Task_t *pTask );
 	void StartTask( Task_t *pTask );
@@ -81,6 +92,7 @@ public:
 	float m_painTime;
 	float m_checkAttackTime;
 	BOOL m_lastAttackCheck;
+	BarneyTypes m_barneyTypes;
 
 	// UNDONE: What is this for?  It isn't used?
 	float m_flPlayerDamage;// how much pain has the player inflicted on me?
@@ -97,6 +109,7 @@ TYPEDESCRIPTION	CBarney::m_SaveData[] =
 	DEFINE_FIELD( CBarney, m_checkAttackTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_lastAttackCheck, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_flPlayerDamage, FIELD_FLOAT ),
+	DEFINE_FIELD( CBarney, m_barneyTypes, FIELD_INTEGER)
 };
 
 IMPLEMENT_SAVERESTORE( CBarney, CTalkMonster )
@@ -343,16 +356,41 @@ void CBarney::BarneyFirePistol( void )
 	SetBlending( 0, angDir.x );
 	pev->effects = EF_MUZZLEFLASH;
 
-	FireBullets( 1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_9MM );
+	int pitchShift = RANDOM_LONG(0, 20);
 
-	int pitchShift = RANDOM_LONG( 0, 20 );
-	
 	// Only shift about half the time
-	if( pitchShift > 10 )
+	if (pitchShift > 10)
 		pitchShift = 0;
 	else
 		pitchShift -= 5;
-	EMIT_SOUND_DYN( ENT( pev ), CHAN_WEAPON, "barney/ba_attack2.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift );
+
+	switch (m_barneyTypes) {
+	case BarneyTypes::BARNEY_TYPE_PISTOL: {
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_9MM);
+		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack2.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
+		break;
+	}
+	case BarneyTypes::BARNEY_TYPE_MP5: {
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_MP5);
+		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack5.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
+		break;
+	}
+	case BarneyTypes::BARNEY_TYPE_SHOTGUN: {
+		FireBullets(gSkillData.hgruntShotgunPellets, vecShootOrigin, vecShootDir, VECTOR_CONE_8DEGREES, 2048, BULLET_PLAYER_BUCKSHOT, 1);
+		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack4.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
+		break;
+	}
+	case BarneyTypes::BARNEY_TYPE_HEV: {
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_PLAYER_357);
+		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack3.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
+		break;
+	}
+	default: {
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_9MM);
+		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack2.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
+		break;
+	}
+	}
 
 	CSoundEnt::InsertSound( bits_SOUND_COMBAT, pev->origin, 384, 0.3f );
 
@@ -370,12 +408,16 @@ void CBarney::HandleAnimEvent( MonsterEvent_t *pEvent )
 {
 	switch( pEvent->event )
 	{
-	case BARNEY_AE_SHOOT:
-		BarneyFirePistol();
-		break;
 	case BARNEY_AE_DRAW:
 		// barney's bodygroup switches here so he can pull gun from holster
 		pev->body = BARNEY_BODY_GUNDRAWN;
+
+		// To fix a visual problem
+		if (m_barneyTypes != BarneyTypes::BARNEY_TYPE_PISTOL && m_barneyTypes != BarneyTypes::BARNEY_TYPE_HEV)
+		{
+			pev->body = BARNEY_BODY_GUNHOLSTERED;
+		}
+
 		m_fGunDrawn = TRUE;
 		break;
 	case BARNEY_AE_HOLSTER:
@@ -385,7 +427,22 @@ void CBarney::HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 	default:
 		CTalkMonster::HandleAnimEvent( pEvent );
+		break;
 	}
+}
+
+//=========================================================
+// KeyValue
+//=========================================================
+void CBarney::KeyValue(KeyValueData* pkvd)
+{
+	if (FStrEq(pkvd->szKeyName, "barney_type_override"))
+	{
+		m_barneyTypes = static_cast<BarneyTypes>(atoi(pkvd->szValue));
+		pkvd->fHandled = TRUE;
+	}
+	else
+		CBaseMonster::KeyValue(pkvd);
 }
 
 //=========================================================
@@ -395,7 +452,24 @@ void CBarney::Spawn()
 {
 	Precache();
 
-	SET_MODEL( ENT( pev ), "models/barney.mdl" );
+	switch (m_barneyTypes) {
+	case BarneyTypes::BARNEY_TYPE_PISTOL:
+		SET_MODEL(ENT(pev), "models/barney.mdl");
+		break;
+	case BarneyTypes::BARNEY_TYPE_MP5:
+		SET_MODEL(ENT(pev), "models/barney_mp5.mdl");
+		break;
+	case BarneyTypes::BARNEY_TYPE_SHOTGUN:
+		SET_MODEL(ENT(pev), "models/barney_shotgun.mdl");
+		break;
+	case BarneyTypes::BARNEY_TYPE_HEV:
+		SET_MODEL(ENT(pev), "models/barney_hev.mdl");
+		break;
+	default:
+		SET_MODEL(ENT(pev), "models/barney.mdl");
+		break;
+	}
+
 	UTIL_SetSize( pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	pev->solid = SOLID_SLIDEBOX;
@@ -413,6 +487,9 @@ void CBarney::Spawn()
 
 	MonsterInit();
 	SetUse( &CTalkMonster::FollowerUse );
+
+	// Hey guys we got speeeeeddddddd up! For mp5 barney ou come on!
+	pev->nextthink = gpGlobals->time + 0.1f;
 }
 
 //=========================================================
@@ -421,9 +498,15 @@ void CBarney::Spawn()
 void CBarney::Precache()
 {
 	PRECACHE_MODEL( "models/barney.mdl" );
+	PRECACHE_MODEL( "models/barney_mp5.mdl" );
+	PRECACHE_MODEL( "models/barney_shotgun.mdl" );
+	PRECACHE_MODEL( "models/barney_hev.mdl" );
 
 	PRECACHE_SOUND( "barney/ba_attack1.wav" );
-	PRECACHE_SOUND( "barney/ba_attack2.wav" );
+	PRECACHE_SOUND( "barney/ba_attack2.wav" ); //Pistol
+	PRECACHE_SOUND( "barney/ba_attack3.wav" ); //Revolver
+	PRECACHE_SOUND( "barney/ba_attack4.wav" ); //Shotgun
+	PRECACHE_SOUND( "barney/ba_attack5.wav" ); //MP5
 
 	PRECACHE_SOUND( "barney/ba_pain1.wav" );
 	PRECACHE_SOUND( "barney/ba_pain2.wav" );
@@ -438,6 +521,32 @@ void CBarney::Precache()
 	TalkInit();
 	CTalkMonster::Precache();
 }	
+
+BOOL CBarney::CanShoot()
+{
+	if (IsAlive() == FALSE) return FALSE;
+
+	if (m_hEnemy == NULL) return FALSE;
+
+	if (!m_hEnemy->IsAlive()) return FALSE;
+
+	if (!FVisible(m_hEnemy->Center())) return FALSE;
+
+	if (m_fGunDrawn == FALSE) return FALSE;
+
+	return TRUE;
+}
+
+void CBarney::Think()
+{
+	if (CanShoot()) {
+		BarneyFirePistol();
+	}
+
+	CBaseMonster::Think();
+
+	pev->nextthink = gpGlobals->time + 0.1f;
+}
 
 // Init talk data
 void CBarney::TalkInit()
@@ -614,9 +723,31 @@ void CBarney::Killed( entvars_t *pevAttacker, int iGib )
 
 		pev->body = BARNEY_BODY_GUNGONE;
 
+		// Fix a visual problem
+		if (m_barneyTypes != BarneyTypes::BARNEY_TYPE_PISTOL && m_barneyTypes != BarneyTypes::BARNEY_TYPE_HEV)
+		{
+			pev->body = BARNEY_BODY_GUNDRAWN;
+		}
+
 		GetAttachment( 0, vecGunPos, vecGunAngles );
 
-		DropItem( "weapon_9mmhandgun", vecGunPos, vecGunAngles );
+		switch (m_barneyTypes) {
+		case BarneyTypes::BARNEY_TYPE_PISTOL:
+			DropItem("weapon_9mmhandgun", vecGunPos, vecGunAngles);
+			break;
+		case BarneyTypes::BARNEY_TYPE_MP5:
+			DropItem("weapon_mp5", vecGunPos, vecGunAngles);
+			break;
+		case BarneyTypes::BARNEY_TYPE_SHOTGUN:
+			DropItem("weapon_shotgun", vecGunPos, vecGunAngles);
+			break;
+		case BarneyTypes::BARNEY_TYPE_HEV:
+			DropItem("weapon_357", vecGunPos, vecGunAngles);
+			break;
+		default:
+			DropItem("weapon_9mmhandgun", vecGunPos, vecGunAngles);
+			break;
+		}
 	}
 
 	SetUse( NULL );	
