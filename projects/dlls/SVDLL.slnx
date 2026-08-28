@@ -3,28 +3,24 @@
 	<Configurations>
 		<BuildType Name="Debug"/>
 		<BuildType Name="Release"/>
-		<BuildType Name="MinSizeRel"/>
-		<BuildType Name="RelWithDebInfo"/>
 		<Platform Name="Win32"/>
 	</Configurations>
-	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="51d359c4-bef6-3d6c-b26b-a4777da50751" DefaultStartup="true">
+	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="2aea8370-d129-323c-8fe3-58d929dde3e9" DefaultStartup="true">
 		<BuildDependency Project="../ZERO_CHECK.vcxproj"/>
 		<BuildDependency Project="server.vcxproj"/>
 	</Project>
-	<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="4c4ed1c1-4734-338e-83fb-a3c3e3a5e3a3">
+	<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="c4e3ce9c-64a6-38d8-907c-a15e830afc02">
 		<BuildDependency Project="ALL_BUILD.vcxproj"/>
 		<BuildDependency Project="../ZERO_CHECK.vcxproj"/>
 		<Build Solution="Debug|*" Project="false"/>
 		<Build Solution="Release|*" Project="false"/>
-		<Build Solution="MinSizeRel|*" Project="false"/>
-		<Build Solution="RelWithDebInfo|*" Project="false"/>
 	</Project>
-	<Project Path="../ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f683b367-96a4-35cf-ad89-c480523960df"/>
-	<Project Path="server.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="df319611-7897-35c9-8c5c-92a53adf4726">
+	<Project Path="../ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f1ed5136-3175-38d5-8998-e22cf3fc7e05"/>
+	<Project Path="server.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="fd82d3be-f37b-316f-8d77-b6622c93831e">
 		<BuildDependency Project="../ZERO_CHECK.vcxproj"/>
 		<BuildDependency Project="../game_shared/vcs_info.vcxproj"/>
 	</Project>
-	<Project Path="../game_shared/vcs_info.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="25549243-ca99-3de3-b412-e3014e178473">
+	<Project Path="../game_shared/vcs_info.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ed0b8ed5-1e98-305c-86ad-3bd2486e0607">
 		<BuildDependency Project="../ZERO_CHECK.vcxproj"/>
 	</Project>
 </Solution>

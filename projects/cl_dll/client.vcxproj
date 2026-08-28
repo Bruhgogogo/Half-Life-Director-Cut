@@ -12,17 +12,9 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="MinSizeRel|Win32">
-      <Configuration>MinSizeRel</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="RelWithDebInfo|Win32">
-      <Configuration>RelWithDebInfo</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B8AF74E1-F41A-37E1-BC09-8564185BC70D}</ProjectGuid>
+    <ProjectGuid>{81C52908-3C67-3CE0-84DF-8E574C5728D9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>Win32</Platform>
@@ -40,16 +32,6 @@
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v145</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v145</PlatformToolset>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -59,72 +41,52 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">client.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">client</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">client.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">client</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">client.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">client</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">client.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">client</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <BufferSecurityCheck>
-      </BufferSecurityCheck>
-      <CallingConvention>
-      </CallingConvention>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <FloatingPointModel>
-      </FloatingPointModel>
-      <ForceConformanceInForLoopScope>
-      </ForceConformanceInForLoopScope>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <MinimalRebuild>false</MinimalRebuild>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData>
-      </RemoveUnreferencedCodeData>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode>
-      </SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType>
-      </TreatWChar_tAsBuiltInType>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR="Debug";client_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR=\"Debug\";client_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -135,18 +97,14 @@
       <AdditionalDependencies>..\game_shared\Debug\vcs_info.lib;user32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
+      <DataExecutionPrevention></DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers>
-      </ImageHasSafeExceptionHandlers>
-      <ImportLibrary>F:/Projects/halfLifeDirectorCut/projects/cl_dll/Debug/client.lib</ImportLibrary>
-      <LinkErrorReporting>
-      </LinkErrorReporting>
-      <ProgramDataBaseFile>F:/Projects/halfLifeDirectorCut/projects/cl_dll/Debug/client.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress>
-      </RandomizedBaseAddress>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/Debug/client.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/Debug/client.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -155,30 +113,23 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <BufferSecurityCheck>
-      </BufferSecurityCheck>
-      <CallingConvention>
-      </CallingConvention>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <FloatingPointModel>
-      </FloatingPointModel>
-      <ForceConformanceInForLoopScope>
-      </ForceConformanceInForLoopScope>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <MinimalRebuild>false</MinimalRebuild>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData>
-      </RemoveUnreferencedCodeData>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode>
-      </SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType>
-      </TreatWChar_tAsBuiltInType>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR="Release";client_EXPORTS</PreprocessorDefinitions>
@@ -186,14 +137,13 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR=\"Release\";client_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -204,155 +154,14 @@
       <AdditionalDependencies>..\game_shared\Release\vcs_info.lib;user32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
+      <DataExecutionPrevention></DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers>
-      </ImageHasSafeExceptionHandlers>
-      <ImportLibrary>F:/Projects/halfLifeDirectorCut/projects/cl_dll/Release/client.lib</ImportLibrary>
-      <LinkErrorReporting>
-      </LinkErrorReporting>
-      <ProgramDataBaseFile>F:/Projects/halfLifeDirectorCut/projects/cl_dll/Release/client.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress>
-      </RandomizedBaseAddress>
-      <SubSystem>Console</SubSystem>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <BufferSecurityCheck>
-      </BufferSecurityCheck>
-      <CallingConvention>
-      </CallingConvention>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <FloatingPointModel>
-      </FloatingPointModel>
-      <ForceConformanceInForLoopScope>
-      </ForceConformanceInForLoopScope>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <MinimalRebuild>false</MinimalRebuild>
-      <Optimization>MinSpace</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData>
-      </RemoveUnreferencedCodeData>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode>
-      </SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType>
-      </TreatWChar_tAsBuiltInType>
-      <UseFullPaths>false</UseFullPaths>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR="MinSizeRel";client_EXPORTS</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR=\"MinSizeRel\";client_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Link>
-      <AdditionalDependencies>..\game_shared\MinSizeRel\vcs_info.lib;user32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers>
-      </ImageHasSafeExceptionHandlers>
-      <ImportLibrary>F:/Projects/halfLifeDirectorCut/projects/cl_dll/MinSizeRel/client.lib</ImportLibrary>
-      <LinkErrorReporting>
-      </LinkErrorReporting>
-      <ProgramDataBaseFile>F:/Projects/halfLifeDirectorCut/projects/cl_dll/MinSizeRel/client.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress>
-      </RandomizedBaseAddress>
-      <SubSystem>Console</SubSystem>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <BufferSecurityCheck>
-      </BufferSecurityCheck>
-      <CallingConvention>
-      </CallingConvention>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <FloatingPointModel>
-      </FloatingPointModel>
-      <ForceConformanceInForLoopScope>
-      </ForceConformanceInForLoopScope>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <MinimalRebuild>false</MinimalRebuild>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData>
-      </RemoveUnreferencedCodeData>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode>
-      </SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType>
-      </TreatWChar_tAsBuiltInType>
-      <UseFullPaths>false</UseFullPaths>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR="RelWithDebInfo";client_EXPORTS</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;CLIENT_DLL;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GOLDSOURCE_SUPPORT;CMAKE_INTDIR=\"RelWithDebInfo\";client_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>F:\Projects\halfLifeDirectorCut\cl_dll\.;F:\Projects\halfLifeDirectorCut\cl_dll\hl;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls;F:\Projects\halfLifeDirectorCut\cl_dll\..\dlls\wpn_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\common;F:\Projects\halfLifeDirectorCut\cl_dll\..\engine;F:\Projects\halfLifeDirectorCut\cl_dll\..\pm_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\game_shared;F:\Projects\halfLifeDirectorCut\cl_dll\..\public;F:\Projects\halfLifeDirectorCut\cl_dll\..\external;F:\Projects\halfLifeDirectorCut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Link>
-      <AdditionalDependencies>..\game_shared\RelWithDebInfo\vcs_info.lib;user32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers>
-      </ImageHasSafeExceptionHandlers>
-      <ImportLibrary>F:/Projects/halfLifeDirectorCut/projects/cl_dll/RelWithDebInfo/client.lib</ImportLibrary>
-      <LinkErrorReporting>
-      </LinkErrorReporting>
-      <ProgramDataBaseFile>F:/Projects/halfLifeDirectorCut/projects/cl_dll/RelWithDebInfo/client.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress>
-      </RandomizedBaseAddress>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/Release/client.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/Release/client.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -360,11 +169,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="F:\Projects\halfLifeDirectorCut\cl_dll\CMakeLists.txt">
+    <CustomBuild Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/Projects/halfLifeDirectorCut/cl_dll/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/cl_dll/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/halfLifeDirectorCut -BF:/Projects/halfLifeDirectorCut/projects --check-stamp-file F:/Projects/halfLifeDirectorCut/projects/cl_dll/CMakeFiles/generate.stamp
+E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut -BC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects --check-stamp-file C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -373,11 +182,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/Projects/halfLifeDirectorCut/cl_dll/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/cl_dll/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/halfLifeDirectorCut -BF:/Projects/halfLifeDirectorCut/projects --check-stamp-file F:/Projects/halfLifeDirectorCut/projects/cl_dll/CMakeFiles/generate.stamp
+E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut -BC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects --check-stamp-file C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -386,114 +195,88 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule F:/Projects/halfLifeDirectorCut/cl_dll/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/halfLifeDirectorCut -BF:/Projects/halfLifeDirectorCut/projects --check-stamp-file F:/Projects/halfLifeDirectorCut/projects/cl_dll/CMakeFiles/generate.stamp
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule F:/Projects/halfLifeDirectorCut/cl_dll/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/halfLifeDirectorCut -BF:/Projects/halfLifeDirectorCut/projects --check-stamp-file F:/Projects/halfLifeDirectorCut/projects/cl_dll/CMakeFiles/generate.stamp
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\Projects\halfLifeDirectorCut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\crossbow.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\crowbar.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\egon.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\gauss.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\handgrenade.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\hornetgun.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\mp5.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\python.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\rpg.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\satchel.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\shotgun.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\squeakgrenade.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\tripmine.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\dlls\glock.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\ev_hldm.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hl\hl_baseentity.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hl\hl_events.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hl\hl_objects.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hl\hl_weapons.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\ammo.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\ammo_secondary.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\ammohistory.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\battery.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\cdll_int.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\com_weapons.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\death.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\demo.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\entity.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\ev_common.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\events.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\flashlight.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\GameStudioModelRenderer.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\geiger.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\health.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hud.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hud_msg.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hud_redraw.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hud_spectator.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\hud_update.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\in_camera.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\input.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\input_goldsource.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\input_mouse.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\input_xash3d.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\interpolation.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\menu.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\message.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\parsemsg.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\pm_shared\pm_debug.c" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\pm_shared\pm_math.c" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\pm_shared\pm_shared.c" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\saytext.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\status_icons.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\statusbar.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\studio_util.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\StudioModelRenderer.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\text_message.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\train.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\tri.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\util.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\view.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\public\safe_snprintf.c" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\MOTD.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\cl_dll\scoreboard.cpp" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\external\openbsd\strlcpy.c" />
-    <ClCompile Include="F:\Projects\halfLifeDirectorCut\external\openbsd\strlcat.c" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\crossbow.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\crowbar.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\egon.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\gauss.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\handgrenade.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\hornetgun.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\mp5.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\python.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\rpg.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\satchel.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\shotgun.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\squeakgrenade.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\tripmine.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\glock.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\ev_hldm.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl\hl_baseentity.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl\hl_events.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl\hl_objects.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl\hl_weapons.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\ammo.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\ammo_secondary.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\ammohistory.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\battery.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\cdll_int.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\com_weapons.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\death.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\demo.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\entity.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\ev_common.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\events.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\flashlight.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\GameStudioModelRenderer.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\geiger.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\health.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hud.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hud_msg.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hud_redraw.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hud_spectator.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hud_update.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\in_camera.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\input.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\input_goldsource.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\input_mouse.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\input_xash3d.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\interpolation.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\menu.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\message.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\parsemsg.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\pm_shared\pm_debug.c" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\pm_shared\pm_math.c" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\pm_shared\pm_shared.c" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\saytext.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\status_icons.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\statusbar.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\studio_util.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\StudioModelRenderer.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\text_message.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\train.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\tri.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\util.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\view.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\public\safe_snprintf.c" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\MOTD.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\scoreboard.cpp" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\external\openbsd\strlcpy.c" />
+    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\external\openbsd\strlcat.c" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="F:\Projects\halfLifeDirectorCut\projects\ZERO_CHECK.vcxproj">
-      <Project>{F683B367-96A4-35CF-AD89-C480523960DF}</Project>
+    <ProjectReference Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\ZERO_CHECK.vcxproj">
+      <Project>{F1ED5136-3175-38D5-8998-E22CF3FC7E05}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="F:\Projects\halfLifeDirectorCut\projects\game_shared\vcs_info.vcxproj">
-      <Project>{25549243-CA99-3DE3-B412-E3014E178473}</Project>
+    <ProjectReference Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\game_shared\vcs_info.vcxproj">
+      <Project>{ED0B8ED5-1E98-305C-86AD-3BD2486E0607}</Project>
       <Name>vcs_info</Name>
     </ProjectReference>
   </ItemGroup>

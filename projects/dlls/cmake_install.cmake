@@ -1,8 +1,8 @@
-# Install script for directory: F:/Projects/halfLifeDirectorCut/dlls
+# Install script for directory: C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/dlls
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/HLSDK-PORTABLE")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,19 +34,15 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "F:/Projects/halfLifeDirectorCut/projects/dlls/Debug/hl.dll")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Debug/hl.dll")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "F:/Projects/halfLifeDirectorCut/projects/dlls/Release/hl.dll")
-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "F:/Projects/halfLifeDirectorCut/projects/dlls/MinSizeRel/hl.dll")
-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "F:/Projects/halfLifeDirectorCut/projects/dlls/RelWithDebInfo/hl.dll")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Release/hl.dll")
   endif()
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "F:/Projects/halfLifeDirectorCut/projects/dlls/install_local_manifest.txt"
+  file(WRITE "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
