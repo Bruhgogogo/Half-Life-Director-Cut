@@ -60,26 +60,34 @@
       <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <BufferSecurityCheck></BufferSecurityCheck>
-      <CallingConvention></CallingConvention>
+      <BufferSecurityCheck>
+      </BufferSecurityCheck>
+      <CallingConvention>
+      </CallingConvention>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <FloatingPointModel></FloatingPointModel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <FloatingPointModel>
+      </FloatingPointModel>
+      <ForceConformanceInForLoopScope>
+      </ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <MinimalRebuild></MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RemoveUnreferencedCodeData>
+      </RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType>
+      </TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;NO_VOICEGAMEMGR;CMAKE_INTDIR="Debug";server_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;NO_VOICEGAMEMGR;CMAKE_INTDIR=\"Debug\";server_EXPORTS</PreprocessorDefinitions>
@@ -97,15 +105,19 @@
       <AdditionalDependencies>..\game_shared\Debug\vcs_info.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <DataExecutionPrevention></DataExecutionPrevention>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImageHasSafeExceptionHandlers>
+      </ImageHasSafeExceptionHandlers>
       <ImportLibrary>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Debug/hl.lib</ImportLibrary>
-      <LinkErrorReporting></LinkErrorReporting>
+      <LinkErrorReporting>
+      </LinkErrorReporting>
       <ModuleDefinitionFile>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/dlls/hl.def</ModuleDefinitionFile>
       <ProgramDataBaseFile>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Debug/hl.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <RandomizedBaseAddress>
+      </RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -117,20 +129,27 @@
       <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\dlls\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <BufferSecurityCheck></BufferSecurityCheck>
-      <CallingConvention></CallingConvention>
+      <BufferSecurityCheck>
+      </BufferSecurityCheck>
+      <CallingConvention>
+      </CallingConvention>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <FloatingPointModel></FloatingPointModel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <FloatingPointModel>
+      </FloatingPointModel>
+      <ForceConformanceInForLoopScope>
+      </ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <MinimalRebuild></MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RemoveUnreferencedCodeData>
+      </RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType>
+      </TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;NO_VOICEGAMEMGR;CMAKE_INTDIR="Release";server_EXPORTS</PreprocessorDefinitions>
@@ -138,6 +157,7 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;NO_VOICEGAMEMGR;CMAKE_INTDIR=\"Release\";server_EXPORTS</PreprocessorDefinitions>
@@ -155,15 +175,19 @@
       <AdditionalDependencies>..\game_shared\Release\vcs_info.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <DataExecutionPrevention></DataExecutionPrevention>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImageHasSafeExceptionHandlers>
+      </ImageHasSafeExceptionHandlers>
       <ImportLibrary>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Release/hl.lib</ImportLibrary>
-      <LinkErrorReporting></LinkErrorReporting>
+      <LinkErrorReporting>
+      </LinkErrorReporting>
       <ModuleDefinitionFile>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/dlls/hl.def</ModuleDefinitionFile>
       <ProgramDataBaseFile>C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Release/hl.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <RandomizedBaseAddress>
+      </RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>

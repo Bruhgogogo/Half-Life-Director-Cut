@@ -41,6 +41,11 @@ constexpr int BARNEY_BODY_GUNHOLSTERED		= 0;
 constexpr int BARNEY_BODY_GUNDRAWN			= 1;
 constexpr int BARNEY_BODY_GUNGONE			= 2;
 
+constexpr float BARNEY_PISTOL_RPM				= 60.0f / 240.0f;
+constexpr float BARNEY_MP5_RPM				= 60.0f / 700.0f;
+constexpr float BARNEY_SHOTGUN_RPM			= 60.0f / 240.0f;
+constexpr float BARNEY_RELOVER_RPM			= 60.0f / 120.0f;
+
 enum class BarneyTypes : int {
 	BARNEY_TYPE_PISTOL	= 0,
 	BARNEY_TYPE_MP5		= 1,
@@ -57,6 +62,7 @@ public:
 	int ISoundMask( void );
 	void BarneyFirePistol( void );
 	BOOL CanShoot();
+	const float GetBarneyRPM();
 	void AlertSound( void );
 	int Classify( void );
 	void HandleAnimEvent( MonsterEvent_t *pEvent );
@@ -91,7 +97,9 @@ public:
 	BOOL m_fGunDrawn;
 	float m_painTime;
 	float m_checkAttackTime;
+	float m_nextAttackTime;
 	BOOL m_lastAttackCheck;
+	BOOL m_dead;
 	BarneyTypes m_barneyTypes;
 
 	// UNDONE: What is this for?  It isn't used?
@@ -107,7 +115,9 @@ TYPEDESCRIPTION	CBarney::m_SaveData[] =
 	DEFINE_FIELD( CBarney, m_fGunDrawn, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_painTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_checkAttackTime, FIELD_TIME ),
+	DEFINE_FIELD( CBarney, m_nextAttackTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_lastAttackCheck, FIELD_BOOLEAN ),
+	DEFINE_FIELD( CBarney, m_dead, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_flPlayerDamage, FIELD_FLOAT ),
 	DEFINE_FIELD( CBarney, m_barneyTypes, FIELD_INTEGER)
 };
@@ -489,7 +499,7 @@ void CBarney::Spawn()
 	SetUse( &CTalkMonster::FollowerUse );
 
 	// Hey guys we got speeeeeddddddd up! For mp5 barney ou come on!
-	pev->nextthink = gpGlobals->time + 0.1f;
+	pev->nextthink = gpGlobals->time + GetBarneyRPM();
 }
 
 //=========================================================
@@ -537,15 +547,33 @@ BOOL CBarney::CanShoot()
 	return TRUE;
 }
 
+const float CBarney::GetBarneyRPM()
+{
+	switch (m_barneyTypes)
+	{
+	case BarneyTypes::BARNEY_TYPE_PISTOL:
+		return BARNEY_PISTOL_RPM;
+	case BarneyTypes::BARNEY_TYPE_MP5:
+		return BARNEY_MP5_RPM;
+	case BarneyTypes::BARNEY_TYPE_SHOTGUN:
+		return BARNEY_SHOTGUN_RPM;
+	case BarneyTypes::BARNEY_TYPE_HEV:
+		return BARNEY_RELOVER_RPM;
+	default:
+		return BARNEY_PISTOL_RPM;
+	}
+}
+
 void CBarney::Think()
 {
 	if (CanShoot()) {
 		BarneyFirePistol();
+		m_nextAttackTime = gpGlobals->time + GetBarneyRPM();
 	}
 
 	CBaseMonster::Think();
 
-	pev->nextthink = gpGlobals->time + 0.1f;
+	pev->nextthink = gpGlobals->time + GetBarneyRPM();
 }
 
 // Init talk data
@@ -715,8 +743,10 @@ void CBarney::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 
 void CBarney::Killed( entvars_t *pevAttacker, int iGib )
 {
-	if( pev->body < BARNEY_BODY_GUNGONE )
+	if( m_dead == FALSE )
 	{
+		m_dead = TRUE;
+
 		// drop the gun!
 		Vector vecGunPos;
 		Vector vecGunAngles;
