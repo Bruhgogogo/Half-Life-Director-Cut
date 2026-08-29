@@ -23,10 +23,13 @@
 #include "gamerules.h"
 
 // special deathmatch shotgun spreads
-#define VECTOR_CONE_DM_SHOTGUN	Vector( 0.08716, 0.04362, 0.00 )// 10 degrees by 5 degrees
-#define VECTOR_CONE_DM_DOUBLESHOTGUN Vector( 0.17365, 0.04362, 0.00 ) // 20 degrees by 5 degrees
+const Vector VECTOR_CONE_DM_SHOTGUN			= Vector(0.08716, 0.04362, 0.00);	// 10 degrees by 5 degrees
+const Vector VECTOR_CONE_DM_DOUBLESHOTGUN	= Vector(0.17365, 0.04362, 0.00);	// 20 degrees by 5 degrees
 
-enum shotgun_e
+constexpr float SHOTGUN_PRIMARY_ATTACK_PUMP_ACTION_DURATION = 0.7f;				// Hard code everywhere before, but i reduce 0.05 seconds from original 0.75 for, i just thought it feels great :)
+constexpr float SHOTGUN_PRIMARY_ATTACK_SEMI_AUTO_DURATION = 60.0f / 240.0f;		// Moving up to the real world RPM!
+
+enum shotgun_e : int
 {
 	SHOTGUN_IDLE = 0,
 	SHOTGUN_FIRE,
@@ -38,6 +41,12 @@ enum shotgun_e
 	SHOTGUN_HOLSTER,
 	SHOTGUN_IDLE4,
 	SHOTGUN_IDLE_DEEP
+};
+
+enum class shotgunFireModes : int
+{
+	PUMP_ACTION = 0,
+	SEMI_AUTO = 1
 };
 
 LINK_ENTITY_TO_CLASS( weapon_shotgun, CShotgun )
@@ -76,7 +85,8 @@ void CShotgun::Precache( void )
 	PRECACHE_SOUND( "weapons/scock1.wav" );	// cock gun
 
 	m_usSingleFire = PRECACHE_EVENT( 1, "events/shotgun1.sc" );
-	m_usDoubleFire = PRECACHE_EVENT( 1, "events/shotgun2.sc" );
+
+	m_iFireMode = static_cast<int>(shotgunFireModes::PUMP_ACTION);
 }
 
 int CShotgun::AddToPlayer( CBasePlayer *pPlayer )
@@ -168,15 +178,24 @@ void CShotgun::PrimaryAttack()
 
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usSingleFire, 0.0, g_vecZero, g_vecZero, vecDir.x, vecDir.y, 0, 0, 0, 0 );
 
-	if( !m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 )
+	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
 		// HEV suit - indicate out of ammo condition
-		m_pPlayer->SetSuitUpdate( "!HEV_AMO0", FALSE, 0 );
+		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, 0);
 
 	//if( m_iClip != 0 )
-		m_flPumpTime = gpGlobals->time + 0.5f;
+	m_flPumpTime = gpGlobals->time + 0.5f;
 
-	m_flNextPrimaryAttack = GetNextAttackDelay( 0.75f );
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.75f;
+	if (m_iFireMode == static_cast<int>(shotgunFireModes::PUMP_ACTION)) // Why modern C++ teach us using static_cast? i just thought (int) will much better? whatever
+	{
+		m_flNextPrimaryAttack = GetNextAttackDelay(SHOTGUN_PRIMARY_ATTACK_PUMP_ACTION_DURATION);
+		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + SHOTGUN_PRIMARY_ATTACK_PUMP_ACTION_DURATION;
+	}
+	else if (m_iFireMode == static_cast<int>(shotgunFireModes::SEMI_AUTO))
+	{
+		m_flNextPrimaryAttack = GetNextAttackDelay(SHOTGUN_PRIMARY_ATTACK_SEMI_AUTO_DURATION);
+		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + SHOTGUN_PRIMARY_ATTACK_SEMI_AUTO_DURATION;
+	}
+
 	if( m_iClip != 0 )
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 5.0f;
 	else
@@ -186,74 +205,18 @@ void CShotgun::PrimaryAttack()
 
 void CShotgun::SecondaryAttack( void )
 {
-	// don't fire underwater
-	if( m_pPlayer->pev->waterlevel == 3 )
-	{
-		PlayEmptySound();
-		m_flNextPrimaryAttack = GetNextAttackDelay( 0.15f );
-		return;
-	}
+	if (m_iFireMode == static_cast<int>(shotgunFireModes::PUMP_ACTION)) 
+		m_iFireMode = static_cast<int>(shotgunFireModes::SEMI_AUTO);
 
-	if( m_iClip <= 1 )
-	{
-		Reload();
-		PlayEmptySound();
-		return;
-	}
+	else if (m_iFireMode == static_cast<int>(shotgunFireModes::SEMI_AUTO)) 
+		m_iFireMode = static_cast<int>(shotgunFireModes::PUMP_ACTION);
 
-	m_pPlayer->m_iWeaponVolume = LOUD_GUN_VOLUME;
-	m_pPlayer->m_iWeaponFlash = NORMAL_GUN_FLASH;
+	else 
+		m_iFireMode = static_cast<int>(shotgunFireModes::PUMP_ACTION);
 
-	m_iClip -= 2;
+	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
 
-	int flags;
-#if CLIENT_WEAPONS
-	flags = FEV_NOTHOST;
-#else
-	flags = 0;
-#endif
-	m_pPlayer->pev->effects = (int)( m_pPlayer->pev->effects ) | EF_MUZZLEFLASH;
-
-	// player "shoot" animation
-	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
-
-	Vector vecSrc = m_pPlayer->GetGunPosition();
-	Vector vecAiming = m_pPlayer->GetAutoaimVector( AUTOAIM_5DEGREES );
-
-	Vector vecDir;
-
-#if CLIENT_DLL
-	if( bIsMultiplayer() )
-#else
-	if( g_pGameRules->IsMultiplayer() )
-#endif
-	{
-		// tuned for deathmatch
-		vecDir = m_pPlayer->FireBulletsPlayer( 8, vecSrc, vecAiming, VECTOR_CONE_DM_DOUBLESHOTGUN, 2048, BULLET_PLAYER_BUCKSHOT, 0, 0, m_pPlayer->pev, m_pPlayer->random_seed );
-	}
-	else
-	{
-		// untouched default single player
-		vecDir = m_pPlayer->FireBulletsPlayer( 12, vecSrc, vecAiming, VECTOR_CONE_10DEGREES, 2048, BULLET_PLAYER_BUCKSHOT, 0, 0, m_pPlayer->pev, m_pPlayer->random_seed );
-	}
-
-	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usDoubleFire, 0.0f, g_vecZero, g_vecZero, vecDir.x, vecDir.y, 0, 0, 0, 0 );
-
-	if( !m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 )
-		// HEV suit - indicate out of ammo condition
-		m_pPlayer->SetSuitUpdate( "!HEV_AMO0", FALSE, 0 );
-
-	//if( m_iClip != 0 )
-		m_flPumpTime = gpGlobals->time + 0.95f;
-
-	m_flNextPrimaryAttack = GetNextAttackDelay( 1.5f );
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 1.5f;
-	if( m_iClip != 0 )
-		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 6.0f;
-	else
-		m_flTimeWeaponIdle = 1.5;
-
-	m_fInSpecialReload = 0;
+	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.2f;
 }
 
 void CShotgun::Reload( void )

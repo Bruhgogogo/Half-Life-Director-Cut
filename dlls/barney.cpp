@@ -44,7 +44,7 @@ constexpr int BARNEY_BODY_GUNGONE			= 2;
 constexpr float BARNEY_PISTOL_RPM			= 60.0f / 240.0f;
 constexpr float BARNEY_MP5_RPM				= 60.0f / 700.0f;
 constexpr float BARNEY_SHOTGUN_RPM			= 60.0f / 240.0f;
-constexpr float BARNEY_RELOVER_RPM			= 60.0f / 120.0f;
+constexpr float BARNEY_RELOVER_RPM			= 60.0f / 180.0f;
 
 enum class BarneyTypes : int {
 	BARNEY_TYPE_PISTOL	= 0,
@@ -307,16 +307,16 @@ void CBarney::SetYawSpeed( void )
 	switch ( m_Activity )
 	{
 	case ACT_IDLE:		
-		ys = 70;
+		ys = 80;
 		break;
 	case ACT_WALK:
-		ys = 70;
+		ys = 80;
 		break;
 	case ACT_RUN:
-		ys = 90;
+		ys = 100;
 		break;
 	default:
-		ys = 70;
+		ys = 80;
 		break;
 	}
 
@@ -376,12 +376,12 @@ void CBarney::BarneyFirePistol( void )
 
 	switch (m_barneyTypes) {
 	case BarneyTypes::BARNEY_TYPE_PISTOL: {
-		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_9MM);
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_MONSTER_9MM);
 		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack2.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
 		break;
 	}
 	case BarneyTypes::BARNEY_TYPE_MP5: {
-		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_MP5);
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_MONSTER_MP5);
 		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack5.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
 		break;
 	}
@@ -391,12 +391,12 @@ void CBarney::BarneyFirePistol( void )
 		break;
 	}
 	case BarneyTypes::BARNEY_TYPE_HEV: {
-		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_PLAYER_357);
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_PLAYER_357, 4, 80);
 		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack3.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
 		break;
 	}
 	default: {
-		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_9MM);
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_MONSTER_9MM);
 		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack2.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
 		break;
 	}
@@ -534,15 +534,26 @@ void CBarney::Precache()
 
 BOOL CBarney::CanShoot()
 {
-	if (IsAlive() == FALSE) return FALSE;
+	if (m_dead == TRUE) 
+		return FALSE;
 
-	if (m_hEnemy == NULL) return FALSE;
+	if (IsAlive() == FALSE)  // For check
+		return FALSE;
 
-	if (!m_hEnemy->IsAlive()) return FALSE;
+	if (m_hEnemy == NULL) 
+		return FALSE;
 
-	if (!FVisible(m_hEnemy->Center())) return FALSE;
+	if (m_hEnemy->IsAlive() == FALSE) 
+		return FALSE;
 
-	if (m_fGunDrawn == FALSE) return FALSE;
+	if (FVisible(m_hEnemy->Center()) == FALSE) 
+		return FALSE;
+
+	if (m_fGunDrawn == FALSE) // Check if the gun is drawn
+		return FALSE;
+
+	if (m_Activity != ACT_RANGE_ATTACK1 && m_Activity != ACT_RANGE_ATTACK2) // Final check is in activity
+		return FALSE;
 
 	return TRUE;
 }
@@ -628,16 +639,66 @@ static BOOL IsFacing( entvars_t *pevTest, const Vector &reference )
 	return FALSE;
 }
 
+static float GetHEVDamageReduction(int damageType)
+{
+	float total = 0.0f;
+	int count = 0;
+
+	if (damageType & DMG_FALL) return 1.0f;
+	if (damageType & DMG_DROWN) return 1.0f;
+	if (damageType & DMG_DROWNRECOVER) return 1.0f;
+
+	if (damageType & DMG_BULLET) { total += 0.2f; count++; }
+	if (damageType & DMG_SLASH) { total += 0.2f; count++; }
+	if (damageType & DMG_CLUB) { total += 0.2f; count++; }
+	if (damageType & DMG_CRUSH) { total += 0.2f; count++; }
+
+	if (damageType & DMG_BLAST) { total += 0.15f; count++; }
+	if (damageType & DMG_MORTAR) { total += 0.15f; count++; }
+
+	if (damageType & DMG_BURN) { total += 0.3f; count++; }
+	if (damageType & DMG_SLOWBURN) { total += 0.3f; count++; }
+
+	if (damageType & DMG_SHOCK) { total += 0.25f; count++; }
+	if (damageType & DMG_ENERGYBEAM) { total += 0.25f; count++; }
+
+	if (damageType & DMG_SONIC) { total += 0.4f; count++; }
+
+	if (damageType & DMG_FREEZE) { total += 0.4f; count++; }
+	if (damageType & DMG_SLOWFREEZE) { total += 0.4f; count++; }
+
+	if (damageType & DMG_PARALYZE) { total += 0.5f; count++; }
+
+	if (damageType & DMG_POISON) { total += 0.25f; count++; }
+	if (damageType & DMG_NERVEGAS) { total += 0.25f; count++; }
+	if (damageType & DMG_RADIATION) { total += 0.25f; count++; }
+	if (damageType & DMG_ACID) { total += 0.25f; count++; }
+
+	if (count > 0)
+		return total / count;
+
+	return 1.0f;
+}
+
+constexpr float HEV_BASE_REDUCTION = 0.75f;
+
 int CBarney::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
 {
+	float finalDamage = flDamage;
+	if (m_barneyTypes == BarneyTypes::BARNEY_TYPE_HEV)
+	{
+		finalDamage *= HEV_BASE_REDUCTION;
+		finalDamage *= GetHEVDamageReduction(bitsDamageType);
+	}
+
 	// make sure friends talk about it if player hurts talkmonsters...
-	int ret = CTalkMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	int ret = CTalkMonster::TakeDamage( pevInflictor, pevAttacker, finalDamage, bitsDamageType );
 	if( !IsAlive() || pev->deadflag == DEAD_DYING )
 		return ret;
 
 	if( m_MonsterState != MONSTERSTATE_PRONE && ( pevAttacker->flags & FL_CLIENT ) )
 	{
-		m_flPlayerDamage += flDamage;
+		m_flPlayerDamage += finalDamage;
 
 		// This is a heurstic to determine if the player intended to harm me
 		// If I have an enemy, we can't establish intent (may just be crossfire)

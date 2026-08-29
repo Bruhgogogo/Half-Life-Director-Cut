@@ -640,6 +640,7 @@ public:
 	int m_fInReload;
 	float m_flNextReload;
 	int m_iShell;
+	int m_iFireMode;
 
 	virtual BOOL UseDecrement( void )
 	{
@@ -651,7 +652,6 @@ public:
 	}
 
 private:
-	unsigned short m_usDoubleFire;
 	unsigned short m_usSingleFire;
 };
 
