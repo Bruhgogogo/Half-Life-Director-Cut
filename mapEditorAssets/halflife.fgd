@@ -573,6 +573,7 @@
 	lfomodpitch(integer) : "LFO mod pitch (0-100)" : 0
 	lfomodvol(integer) : "LFO mod vol (0-100)" : 0
 	cspinup(integer) : "Incremental spinup count" : 0
+	replayontime(float) : "Replay on reach (0 means no)" : 0.0
 	spawnflags(flags) =
 	[
 		1 : "Play Everywhere" : 0

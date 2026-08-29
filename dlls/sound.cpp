@@ -124,6 +124,8 @@ public:
 	virtual int ObjectCaps( void ) { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
 	float m_flAttenuation;		// attenuation value
+	float m_flReplayontime = 0;
+	float m_flLastTimeReplay;
 	dynpitchvol_t m_dpv;
 
 	BOOL m_fActive;	// only TRUE when the entity is playing a looping sound
@@ -135,6 +137,8 @@ LINK_ENTITY_TO_CLASS( ambient_generic, CAmbientGeneric )
 TYPEDESCRIPTION	CAmbientGeneric::m_SaveData[] =
 {
 	DEFINE_FIELD( CAmbientGeneric, m_flAttenuation, FIELD_FLOAT ),
+	DEFINE_FIELD( CAmbientGeneric, m_flReplayontime, FIELD_FLOAT ),
+	DEFINE_FIELD( CAmbientGeneric, m_flLastTimeReplay, FIELD_TIME ),
 	DEFINE_FIELD( CAmbientGeneric, m_fActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CAmbientGeneric, m_fLooping, FIELD_BOOLEAN ),
 
@@ -242,7 +246,7 @@ void CAmbientGeneric::Precache( void )
 	}
 }
 
-// RampThink - Think at 5hz if we are dynamically modifying 
+// RampThink - Think at 10hz if we are dynamically modifying 
 // pitch or volume of the playing sound.  This function will
 // ramp pitch and/or volume up or down, modify pitch/volume
 // with lfo if active.
@@ -255,7 +259,7 @@ void CAmbientGeneric::RampThink( void )
 	int fChanged = 0;		// FALSE if pitch and vol remain unchanged this round
 	int prev;
 
-	if( !m_dpv.spinup && !m_dpv.spindown && !m_dpv.fadein && !m_dpv.fadeout && !m_dpv.lfotype )
+	if( !m_dpv.spinup && !m_dpv.spindown && !m_dpv.fadein && !m_dpv.fadeout && !m_dpv.lfotype && m_flReplayontime == 0 )
 		return;						// no ramps or lfo, stop thinking
 
 	// ==============
@@ -432,12 +436,19 @@ void CAmbientGeneric::RampThink( void )
 		if( pitch == PITCH_NORM )
 			pitch = PITCH_NORM + 1; // don't send 'no pitch' !
 
-		UTIL_EmitAmbientSound( ENT( pev ), pev->origin, szSoundFile,
-				( vol * 0.01f ), m_flAttenuation, flags, pitch );
+		UTIL_EmitAmbientSound( ENT( pev ), pev->origin, szSoundFile, ( vol * 0.01f ), m_flAttenuation, flags, pitch );
 	}
 
-	// update ramps at 5hz
-	pev->nextthink = gpGlobals->time + 0.2f;
+	if (m_flReplayontime != 0.0 && m_flLastTimeReplay < gpGlobals->time && m_fActive == TRUE)
+	{
+		UTIL_EmitAmbientSound(ENT(pev), pev->origin, STRING(pev->message), 0, 0, SND_STOP, 0);
+		UTIL_EmitAmbientSound(ENT(pev), pev->origin, STRING(pev->message), (m_dpv.vol * 0.01f), m_flAttenuation, SND_SPAWNING, m_dpv.pitch);
+
+		m_flLastTimeReplay = gpGlobals->time + m_flReplayontime;
+	}
+
+	// update ramps at 10hz
+	pev->nextthink = gpGlobals->time + 0.1f;
 	return;
 }
 
@@ -793,6 +804,14 @@ void CAmbientGeneric::KeyValue( KeyValueData *pkvd )
 		if( m_dpv.cspinup < 0 )
 			m_dpv.cspinup = 0;
 
+		pkvd->fHandled = TRUE;
+	}
+	// replayontime
+	else if ( FStrEq(pkvd->szKeyName, "replayontime") )
+	{
+		m_flReplayontime = atoi( pkvd->szValue );
+		if (m_flReplayontime < 0)
+			m_flReplayontime = 0;
 		pkvd->fHandled = TRUE;
 	}
 	else

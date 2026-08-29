@@ -276,16 +276,16 @@ void CISlave::SetYawSpeed( void )
 	switch( m_Activity )
 	{
 	case ACT_WALK:		
-		ys = 50;	
+		ys = 70;	
 		break;
 	case ACT_RUN:		
-		ys = 70;
+		ys = 90;
 		break;
 	case ACT_IDLE:		
-		ys = 50;
+		ys = 70;
 		break;
 	default:
-		ys = 90;
+		ys = 110;
 		break;
 	}
 
@@ -451,8 +451,6 @@ BOOL CISlave::CheckRangeAttack1( float flDot, float flDist )
 //=========================================================
 BOOL CISlave::CheckRangeAttack2( float flDot, float flDist )
 {
-	return FALSE;
-
 	if( m_flNextAttack > gpGlobals->time )
 	{
 		return FALSE;

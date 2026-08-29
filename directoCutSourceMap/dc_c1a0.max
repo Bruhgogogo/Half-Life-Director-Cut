@@ -13774,8 +13774,9 @@
 "preset" "0"
 "health" "10"
 "targetname" "big_place_emergency_light_sound"
-"message" "ambience/siren.wav"
+"message" "directorcut/alarms/alarm_1.wav"
 "angles" "0 0 0"
+"replayontime" "5"
 "origin" "-832 2488 360"
 }
 {
@@ -20062,6 +20063,7 @@
 "zhlt_chopup" "0"
 "zhlt_chopdown" "0"
 "zhlt_detaillevel" "1"
+"angles" "0 0 0"
 {
 ( -867 2072 120 ) ( -867 2072 109 ) ( -854 2072 120 ) METAL_BORD01 [ 1 0 0 20 ] [ 0 0 -1 6 ] 0 1 1
 ( -854 2052 120 ) ( -854 2052 109 ) ( -867 2052 120 ) METAL_BORD01 [ 1 0 0 20 ] [ 0 0 -1 6 ] 0 1 1
