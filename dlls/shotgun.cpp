@@ -85,8 +85,6 @@ void CShotgun::Precache( void )
 	PRECACHE_SOUND( "weapons/scock1.wav" );	// cock gun
 
 	m_usSingleFire = PRECACHE_EVENT( 1, "events/shotgun1.sc" );
-
-	m_iFireMode = static_cast<int>(shotgunFireModes::PUMP_ACTION);
 }
 
 int CShotgun::AddToPlayer( CBasePlayer *pPlayer )
@@ -194,6 +192,11 @@ void CShotgun::PrimaryAttack()
 	{
 		m_flNextPrimaryAttack = GetNextAttackDelay(SHOTGUN_PRIMARY_ATTACK_SEMI_AUTO_DURATION);
 		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + SHOTGUN_PRIMARY_ATTACK_SEMI_AUTO_DURATION;
+	}
+	else
+	{
+		m_flNextPrimaryAttack = GetNextAttackDelay(SHOTGUN_PRIMARY_ATTACK_PUMP_ACTION_DURATION);
+		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + SHOTGUN_PRIMARY_ATTACK_PUMP_ACTION_DURATION;
 	}
 
 	if( m_iClip != 0 )

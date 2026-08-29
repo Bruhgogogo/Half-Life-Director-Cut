@@ -1,0 +1,11 @@
+Special Thanks:
+
+Black-Mesa — Contributor of Level Design Concepts ( https://store.steampowered.com/app/362890/Black_Mesa ) 
+
+Half-Life Extended — Contributor of Level Design Concepts ( https://www.moddb.com/mods/half-life-extended )
+
+Crowbar — Contributor of compile models and decompile ( https://steamcommunity.com/groups/CrowbarTool )
+
+J.A.C.K. — Contributor of Level Design ( https://jack.hlfx.ru/en/ )
+
+FWGS — For a best mod base of HLSDK-Portable ( https://github.com/FWGS/hlsdk-portable )

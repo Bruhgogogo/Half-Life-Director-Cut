@@ -38,7 +38,7 @@ enum mp5_e
 LINK_ENTITY_TO_CLASS(weapon_mp5, CMP5)
 LINK_ENTITY_TO_CLASS(weapon_9mmAR, CMP5)
 
-constexpr float MP5_PRIMARY_ATTACK_DURATION = 60.0f / 700.0f;
+constexpr float MP5_PRIMARY_ATTACK_DURATION = 60.0f / 800.0f;
 
 //=========================================================
 //=========================================================

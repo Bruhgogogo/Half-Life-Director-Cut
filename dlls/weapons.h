@@ -639,7 +639,7 @@ public:
 	int m_fInReload;
 	float m_flNextReload;
 	int m_iShell;
-	int m_iFireMode;
+	int m_iFireMode = 0;
 
 	virtual BOOL UseDecrement( void )
 	{
