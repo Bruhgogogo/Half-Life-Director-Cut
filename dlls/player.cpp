@@ -420,8 +420,51 @@ void CBasePlayer::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 	etc are implemented with subsequent calls to TakeDamage using DMG_GENERIC.
 */
 
-#define ARMOR_RATIO	0.2	// Armor Takes 80% of the damage
-#define ARMOR_BONUS	0.5	// Each Point of Armor is work 1/x points of health
+constexpr float ARMOR_RATIO = 0.2;	// Armor Takes 80% of the damage
+constexpr float ARMOR_BONUS = 0.5;	// Each Point of Armor is work 1/x points of health
+
+static float GetHEVDamageReduction(int damageType)
+{
+	float total = 0.0f;
+	int count = 0;
+
+	if (damageType & DMG_FALL) return 1.0f;
+	if (damageType & DMG_DROWN) return 1.0f;
+	if (damageType & DMG_DROWNRECOVER) return 1.0f;
+
+	if (damageType & DMG_BULLET) { total += 0.2f; count++; }
+	if (damageType & DMG_SLASH) { total += 0.2f; count++; }
+	if (damageType & DMG_CLUB) { total += 0.2f; count++; }
+	if (damageType & DMG_CRUSH) { total += 0.2f; count++; }
+
+	if (damageType & DMG_BLAST) { total += 0.15f; count++; }
+	if (damageType & DMG_MORTAR) { total += 0.15f; count++; }
+
+	if (damageType & DMG_BURN) { total += 0.3f; count++; }
+	if (damageType & DMG_SLOWBURN) { total += 0.3f; count++; }
+
+	if (damageType & DMG_SHOCK) { total += 0.25f; count++; }
+	if (damageType & DMG_ENERGYBEAM) { total += 0.25f; count++; }
+
+	if (damageType & DMG_SONIC) { total += 0.4f; count++; }
+
+	if (damageType & DMG_FREEZE) { total += 0.4f; count++; }
+	if (damageType & DMG_SLOWFREEZE) { total += 0.4f; count++; }
+
+	if (damageType & DMG_PARALYZE) { total += 0.5f; count++; }
+
+	if (damageType & DMG_POISON) { total += 0.25f; count++; }
+	if (damageType & DMG_NERVEGAS) { total += 0.25f; count++; }
+	if (damageType & DMG_RADIATION) { total += 0.25f; count++; }
+	if (damageType & DMG_ACID) { total += 0.25f; count++; }
+
+	if (count > 0)
+		return total / count;
+
+	return 1.0f;
+}
+
+constexpr float HEV_BASE_REDUCTION = 0.75f;
 
 int CBasePlayer::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
 {
@@ -434,10 +477,12 @@ int CBasePlayer::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, fl
 	int ftrivial;
 	float flRatio;
 	float flBonus;
+	float finalDamage;
 	float flHealthPrev = pev->health;
 
 	flBonus = ARMOR_BONUS;
 	flRatio = ARMOR_RATIO;
+	finalDamage = flDamage * HEV_BASE_REDUCTION;
 
 	if( ( bitsDamageType & DMG_BLAST ) && g_pGameRules->IsMultiplayer() )
 	{
@@ -459,34 +504,34 @@ int CBasePlayer::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, fl
 	}
 
 	// keep track of amount of damage last sustained
-	m_lastDamageAmount = (int)flDamage;
+	m_lastDamageAmount = (int)finalDamage;
 
 	// Armor. 
 	if( !( pev->flags & FL_GODMODE ) && pev->armorvalue && !( bitsDamageType & ( DMG_FALL | DMG_DROWN ) ) )// armor doesn't protect against fall or drown damage!
 	{
-		float flNew = flDamage * flRatio;
+		finalDamage *= GetHEVDamageReduction(bitsDamageType);
 
-		float flArmor;
+		float flNew = finalDamage * flRatio;
 
-		flArmor = ( flDamage - flNew ) * flBonus;
+		float flArmor = (finalDamage - flNew) * flBonus;
 
 		// Does this use more armor than we have?
 		if( flArmor > pev->armorvalue )
 		{
 			flArmor = pev->armorvalue;
 			flArmor *= ( 1 / flBonus );
-			flNew = flDamage - flArmor;
+			flNew = finalDamage - flArmor;
 			pev->armorvalue = 0;
 		}
 		else
 			pev->armorvalue -= flArmor;
 
-		flDamage = flNew;
+		finalDamage = flNew;
 	}
 
 	// this cast to INT is critical!!! If a player ends up with 0.5 health, the engine will get that
 	// as an int (zero) and think the player is dead! (this will incite a clientside screentilt, etc)
-	fTookDamage = CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage >= 0.0f ? floor(flDamage) : ceil(flDamage), bitsDamageType );
+	fTookDamage = CBaseMonster::TakeDamage( pevInflictor, pevAttacker, finalDamage >= 0.0f ? floor(finalDamage) : ceil(finalDamage), bitsDamageType );
 
 	// reset damage time countdown for each type of time based damage player just sustained
 	{
