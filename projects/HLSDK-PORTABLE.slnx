@@ -5,28 +5,28 @@
 		<BuildType Name="Release"/>
 		<Platform Name="Win32"/>
 	</Configurations>
-	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="2aea8370-d129-323c-8fe3-58d929dde3e9" DefaultStartup="true">
+	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="a5442137-cab5-310b-a02d-16dfe212b66a" DefaultStartup="true">
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 		<BuildDependency Project="cl_dll/client.vcxproj"/>
 		<BuildDependency Project="dlls/server.vcxproj"/>
 		<BuildDependency Project="game_shared/vcs_info.vcxproj"/>
 	</Project>
-	<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="c4e3ce9c-64a6-38d8-907c-a15e830afc02">
+	<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="15ca1870-2f14-3ced-bdb9-7631c21a25a6">
 		<BuildDependency Project="ALL_BUILD.vcxproj"/>
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 		<Build Solution="Debug|*" Project="false"/>
 		<Build Solution="Release|*" Project="false"/>
 	</Project>
-	<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f1ed5136-3175-38d5-8998-e22cf3fc7e05"/>
-	<Project Path="cl_dll/client.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="81c52908-3c67-3ce0-84df-8e574c5728d9">
+	<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="de85eacb-7313-3687-80d8-4f642578fc8f"/>
+	<Project Path="cl_dll/client.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="91774993-faa7-3a6d-83e0-7eb9a334a2b0">
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 		<BuildDependency Project="game_shared/vcs_info.vcxproj"/>
 	</Project>
-	<Project Path="dlls/server.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="fd82d3be-f37b-316f-8d77-b6622c93831e">
+	<Project Path="dlls/server.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f46edd88-a778-355a-9a40-2bc1f53c8509">
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 		<BuildDependency Project="game_shared/vcs_info.vcxproj"/>
 	</Project>
-	<Project Path="game_shared/vcs_info.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ed0b8ed5-1e98-305c-86ad-3bd2486e0607">
+	<Project Path="game_shared/vcs_info.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="5d154b4b-e458-3284-9df9-63c2fa7336a6">
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 	</Project>
 </Solution>

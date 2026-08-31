@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/dlls
+# Install script for directory: F:/Projects/Half-Life-Director-Cut/dlls
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,15 +34,15 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Debug/hl.dll")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "F:/Projects/Half-Life-Director-Cut/projects/dlls/Debug/hl.dll")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/Release/hl.dll")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/valve/dlls" TYPE SHARED_LIBRARY FILES "F:/Projects/Half-Life-Director-Cut/projects/dlls/Release/hl.dll")
   endif()
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/install_local_manifest.txt"
+  file(WRITE "F:/Projects/Half-Life-Director-Cut/projects/dlls/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

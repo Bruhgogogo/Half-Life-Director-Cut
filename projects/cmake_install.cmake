@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut
+# Install script for directory: F:/Projects/Half-Life-Director-Cut
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,16 +34,16 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/game_shared/cmake_install.cmake")
-  include("C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/cmake_install.cmake")
-  include("C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/dlls/cmake_install.cmake")
+  include("F:/Projects/Half-Life-Director-Cut/projects/game_shared/cmake_install.cmake")
+  include("F:/Projects/Half-Life-Director-Cut/projects/cl_dll/cmake_install.cmake")
+  include("F:/Projects/Half-Life-Director-Cut/projects/dlls/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/install_local_manifest.txt"
+  file(WRITE "F:/Projects/Half-Life-Director-Cut/projects/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -59,6 +59,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "F:/Projects/Half-Life-Director-Cut/projects/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

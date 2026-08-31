@@ -44,8 +44,8 @@ enum crowbar_e
 	CROWBAR_ATTACK3MISS,
 	CROWBAR_ATTACK3HIT,
 	CROWBAR_HEAVYATTACK,
-	CROWBAR_IDLE2,
-	CROWBAR_IDLE3
+	CROWBAR_IDLE2, //Not gona use
+	CROWBAR_IDLE3 // Not gona use
 };
 
 void CCrowbar::Spawn()
@@ -68,6 +68,8 @@ void CCrowbar::Precache(void)
 	PRECACHE_SOUND("weapons/cbar_hitbod1.wav");
 	PRECACHE_SOUND("weapons/cbar_hitbod2.wav");
 	PRECACHE_SOUND("weapons/cbar_hitbod3.wav");
+	PRECACHE_SOUND("weapons/cbar_hhit.wav");
+	PRECACHE_SOUND("weapons/cbar_hhitbod.wav");
 	PRECACHE_SOUND("weapons/cbar_miss1.wav");
 
 	m_usCrowbar = PRECACHE_EVENT(1, "events/crowbar.sc");
@@ -392,8 +394,8 @@ void CCrowbar::SecondaryAttack(void) // Why they add void to it? i don't underst
 
 				m_pPlayer->m_iWeaponVolume = CROWBAR_BODYHIT_VOLUME;
 
-				float velocityPower = 200.0f;
-				if (FClassnameIs(pEntity->pev, "monster_headcrab")) velocityPower = 800.0f;
+				float velocityPower = 300.0f;
+				if (FClassnameIs(pEntity->pev, "monster_headcrab")) velocityPower = 1000.0f;
 
 				pEntity->pev->velocity = pEntity->pev->velocity + vecFoward * velocityPower;
 
@@ -419,7 +421,6 @@ void CCrowbar::SecondaryAttack(void) // Why they add void to it? i don't underst
 #else
 			float fvolbar = 1.0f;
 #endif
-
 			// also play crowbar strike
 			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_ITEM, "weapons/cbar_hhit.wav", 1.0f, ATTN_NORM);
 

@@ -17,7 +17,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2AEA8370-D129-323C-8FE3-58D929DDE3E9}</ProjectGuid>
+    <ProjectGuid>{A5442137-CAB5-310B-A02D-16DFE212B66A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>Win32</Platform>
@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\cl_dll\.;F:\Projects\Half-Life-Director-Cut\cl_dll\hl;F:\Projects\Half-Life-Director-Cut\cl_dll\..\dlls;F:\Projects\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;F:\Projects\Half-Life-Director-Cut\cl_dll\..\common;F:\Projects\Half-Life-Director-Cut\cl_dll\..\engine;F:\Projects\Half-Life-Director-Cut\cl_dll\..\pm_shared;F:\Projects\Half-Life-Director-Cut\cl_dll\..\game_shared;F:\Projects\Half-Life-Director-Cut\cl_dll\..\public;F:\Projects\Half-Life-Director-Cut\cl_dll\..\external;F:\Projects\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -59,7 +59,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\.;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\hl;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\common;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\engine;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\pm_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\game_shared;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\public;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\external;C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\cl_dll\.;F:\Projects\Half-Life-Director-Cut\cl_dll\hl;F:\Projects\Half-Life-Director-Cut\cl_dll\..\dlls;F:\Projects\Half-Life-Director-Cut\cl_dll\..\dlls\wpn_shared;F:\Projects\Half-Life-Director-Cut\cl_dll\..\common;F:\Projects\Half-Life-Director-Cut\cl_dll\..\engine;F:\Projects\Half-Life-Director-Cut\cl_dll\..\pm_shared;F:\Projects\Half-Life-Director-Cut\cl_dll\..\game_shared;F:\Projects\Half-Life-Director-Cut\cl_dll\..\public;F:\Projects\Half-Life-Director-Cut\cl_dll\..\external;F:\Projects\Half-Life-Director-Cut\cl_dll\..\utils\fake_vgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -68,11 +68,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\cl_dll\CMakeLists.txt">
+    <CustomBuild Include="F:\Projects\Half-Life-Director-Cut\cl_dll\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/cl_dll/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/Projects/Half-Life-Director-Cut/cl_dll/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut -BC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects --check-stamp-file C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/CMakeFiles/generate.stamp
+E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/Half-Life-Director-Cut -BF:/Projects/Half-Life-Director-Cut/projects --check-stamp-file F:/Projects/Half-Life-Director-Cut/projects/cl_dll/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -81,11 +81,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Projects\Half-Life-Director-Cut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/cl_dll/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/Projects/Half-Life-Director-Cut/cl_dll/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut -BC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects --check-stamp-file C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/cl_dll/CMakeFiles/generate.stamp
+E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/Half-Life-Director-Cut -BF:/Projects/Half-Life-Director-Cut/projects --check-stamp-file F:/Projects/Half-Life-Director-Cut/projects/cl_dll/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -94,7 +94,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Projects\Half-Life-Director-Cut\projects\cl_dll\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
@@ -102,14 +102,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\ZERO_CHECK.vcxproj">
-      <Project>{F1ED5136-3175-38D5-8998-E22CF3FC7E05}</Project>
+    <ProjectReference Include="F:\Projects\Half-Life-Director-Cut\projects\ZERO_CHECK.vcxproj">
+      <Project>{DE85EACB-7313-3687-80D8-4F642578FC8F}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\cl_dll\client.vcxproj">
-      <Project>{81C52908-3C67-3CE0-84DF-8E574C5728D9}</Project>
+    <ProjectReference Include="F:\Projects\Half-Life-Director-Cut\projects\cl_dll\client.vcxproj">
+      <Project>{91774993-FAA7-3A6D-83E0-7EB9A334A2B0}</Project>
       <Name>client</Name>
     </ProjectReference>
   </ItemGroup>

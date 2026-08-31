@@ -3426,9 +3426,56 @@ void CBloodSplat::Spray( void )
 	pev->nextthink = gpGlobals->time + 0.1f;
 }
 
+static bool CharEquals(const char* char1, const char* char2)
+{
+	if (char1 == nullptr || char2 == nullptr)
+		return false;
+
+	return strcmp(char1, char2) == 0;
+}
+
+struct WeaponSoundMap
+{
+	const char* weapon;
+	const char* sound;
+};
+
+static const WeaponSoundMap g_WeaponSoundMap[] =
+{
+	{"weapon_9mmhandgun", "!HEV_PISTOL"},
+	{"weapon_shotgun", "!HEV_SHOTGUN"},
+	{"weapon_grenade", "!HEV_GRENADE"},
+	{"weapon_9mmAR", "!HEV_ASSAULT"},
+	{"weapon_357", "!HEV_44PISTOL"},
+	{"weapon_rpg", "!HEV_RPG"},
+	{"weapon_satchel", "!HEV_SATCHEL"},
+	{"weapon_tripmine", "!HEV_TRIPMINE"},
+	{"weapon_hornetgun", "!HEV_HORNET"},
+	{"weapon_squeak", "!HEV_SQUEEK"},
+	{"weapon_egon", "!HEV_EGON"},
+	{"weapon_gauss", "!HEV_GAUSS"},
+	{"weapon_crossbow", "!HEV_XBOW"}
+};
+
+void CBasePlayer::OnGetItem(const char* itemName)
+{
+	// 12 is the total of weaponSoundMaps, remeber add it after add voice to weaponSoundMap :)
+	for (int i = 0; i < 12; i++)
+	{
+		if (CharEquals(itemName, g_WeaponSoundMap[i].weapon) &&
+			HasNamedPlayerItem(itemName) == FALSE)
+		{
+			SetSuitUpdate(g_WeaponSoundMap[i].sound, FALSE, 0);
+			break;
+		}
+	}
+}
+
 //==============================================
 void CBasePlayer::GiveNamedItem( const char *pszName )
 {
+	OnGetItem(pszName);
+
 	edict_t	*pent;
 
 	int istr = MAKE_STRING( pszName );
@@ -3783,6 +3830,8 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 //
 int CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 {
+	OnGetItem(STRING(pItem->pev->classname));
+
 	CBasePlayerItem *pInsert;
 
 	pInsert = m_rgpPlayerItems[pItem->iItemSlot()];

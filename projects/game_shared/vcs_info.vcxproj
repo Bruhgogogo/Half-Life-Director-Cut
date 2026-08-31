@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ED0B8ED5-1E98-305C-86AD-3BD2486E0607}</ProjectGuid>
+    <ProjectGuid>{5D154B4B-E458-3284-9DF9-63C2FA7336A6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>Win32</Platform>
@@ -41,18 +41,18 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\game_shared\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Projects\Half-Life-Director-Cut\projects\game_shared\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">vcs_info.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">vcs_info</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\game_shared\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Projects\Half-Life-Director-Cut\projects\game_shared\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">vcs_info.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">vcs_info</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck></BufferSecurityCheck>
@@ -72,16 +72,16 @@
       <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="4ec840f3-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="08d429e8-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"4ec840f3-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"08d429e8-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -94,7 +94,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <BufferSecurityCheck></BufferSecurityCheck>
@@ -113,18 +113,18 @@
       <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="4ec840f3-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="08d429e8-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"4ec840f3-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"08d429e8-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -136,11 +136,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\CMakeLists.txt">
+    <CustomBuild Include="F:\Projects\Half-Life-Director-Cut\game_shared\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/game_shared/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/Projects/Half-Life-Director-Cut/game_shared/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut -BC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects --check-stamp-file C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/game_shared/CMakeFiles/generate.stamp
+E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/Half-Life-Director-Cut -BF:/Projects/Half-Life-Director-Cut/projects --check-stamp-file F:/Projects/Half-Life-Director-Cut/projects/game_shared/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -149,11 +149,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\game_shared\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Projects\Half-Life-Director-Cut\projects\game_shared\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/game_shared/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/Projects/Half-Life-Director-Cut/game_shared/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut -BC:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects --check-stamp-file C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/game_shared/CMakeFiles/generate.stamp
+E:\cmake-4.2.5-windows-x86_64\bin\cmake.exe -SF:/Projects/Half-Life-Director-Cut -BF:/Projects/Half-Life-Director-Cut/projects --check-stamp-file F:/Projects/Half-Life-Director-Cut/projects/game_shared/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -162,17 +162,17 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\game_shared\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Projects\Half-Life-Director-Cut\projects\game_shared\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\game_shared\vcs_info.c" />
+    <ClCompile Include="F:\Projects\Half-Life-Director-Cut\game_shared\vcs_info.c" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="C:\Users\PC\Documents\GitHub\Half-Life-Director-Cut\projects\ZERO_CHECK.vcxproj">
-      <Project>{F1ED5136-3175-38D5-8998-E22CF3FC7E05}</Project>
+    <ProjectReference Include="F:\Projects\Half-Life-Director-Cut\projects\ZERO_CHECK.vcxproj">
+      <Project>{DE85EACB-7313-3687-80D8-4F642578FC8F}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

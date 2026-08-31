@@ -577,14 +577,16 @@ const float CBarney::GetBarneyRPM()
 
 void CBarney::Think()
 {
+	float RPM = GetBarneyRPM();
+
 	if (CanShoot()) {
 		BarneyFirePistol();
-		m_nextAttackTime = gpGlobals->time + GetBarneyRPM();
+		m_nextAttackTime = gpGlobals->time + RPM;
 	}
 
 	CBaseMonster::Think();
 
-	pev->nextthink = gpGlobals->time + GetBarneyRPM();
+	pev->nextthink = gpGlobals->time + RPM;
 }
 
 // Init talk data

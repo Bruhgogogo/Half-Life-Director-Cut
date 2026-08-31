@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/game_shared
+# Install script for directory: F:/Projects/Half-Life-Director-Cut/game_shared
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,6 +35,6 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/PC/Documents/GitHub/Half-Life-Director-Cut/projects/game_shared/install_local_manifest.txt"
+  file(WRITE "F:/Projects/Half-Life-Director-Cut/projects/game_shared/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

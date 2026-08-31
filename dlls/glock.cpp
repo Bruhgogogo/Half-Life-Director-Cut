@@ -35,6 +35,9 @@ enum glock_e
 	GLOCK_ADD_SILENCER
 };
 
+constexpr float GLOCK_PRIMARY_ATTACK_DURATION = 60.0f / 240.0f; // Same as barney's RPM
+constexpr float GLOCK_SECONDARY_ATTACK_DURATION = 60.0f / 400.0f; // DOOM TIME!!!!!!!!!!!!
+
 LINK_ENTITY_TO_CLASS( weapon_glock, CGlock )
 LINK_ENTITY_TO_CLASS( weapon_9mmhandgun, CGlock )
 
@@ -106,12 +109,12 @@ BOOL CGlock::Deploy()
 
 void CGlock::SecondaryAttack( void )
 {
-	GlockFire( 0.1f, 0.2f, FALSE );
+	GlockFire( 0.1f, GLOCK_SECONDARY_ATTACK_DURATION, FALSE );
 }
 
 void CGlock::PrimaryAttack( void )
 {
-	GlockFire( 0.01f, 0.3f, TRUE );
+	GlockFire( 0.01f, GLOCK_PRIMARY_ATTACK_DURATION, TRUE );
 }
 
 void CGlock::GlockFire( float flSpread, float flCycleTime, BOOL fUseAutoAim )
