@@ -614,13 +614,15 @@ class CGaussAmmo : public CBasePlayerAmmo
 	void Precache( void )
 	{
 		PRECACHE_MODEL( "models/w_gaussammo.mdl" );
-		PRECACHE_SOUND( "items/9mmclip1.wav" );
+		PRECACHE_SOUND( "player/geiger6.wav" );
+		PRECACHE_SOUND( "weapons/9mm_clip.wav" );
 	}
 	BOOL AddAmmo( CBaseEntity *pOther ) 
 	{ 
 		if( pOther->GiveAmmo( AMMO_URANIUMBOX_GIVE, "uranium", URANIUM_MAX_CARRY ) != -1 )
 		{
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM );
+			EMIT_SOUND( ENT( pev ), CHAN_ITEM, "player/geiger6.wav", 1, ATTN_NORM );
+			EMIT_SOUND(ENT(pev), CHAN_ITEM, "weapons/9mm_clip.wav", 1, ATTN_NORM);
 			return TRUE;
 		}
 		return FALSE;
