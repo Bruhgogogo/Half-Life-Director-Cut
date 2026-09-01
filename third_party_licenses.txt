@@ -8,13 +8,11 @@ Author profile: [link to author's profile]
 Usage in mod:   [describe how it's used and whether modified]
 License status: [explicit permission obtained / unable to contact / follow author's license / etc.]
 
-
-
 Asset Name: HEV Barney (barney_hev.mdl)
-Original author: Azure Sheep & PoV Team
-Author profile: https://www.moddb.com/members/davlevels
-Usage in mod:  Visual model only, no modification
-License status: Follow CC BY-NC license (requires credit and prohibits commercial use without permission)
+Original author: ambient.impact & romka (original HEV Barney model); Qwertyus (magnum edit)
+Author profile: N/A — community contributors
+Usage in mod: Visual model only, no modification (used as-is, unaltered)
+License status: Unknown — asset is included unmodified. We do not claim ownership. If you are the rights holder and have any concerns, please contact us for proper attribution, licensing, or removal.
 
 Asset Name: Original Half-Life 1 SDK (GoldSrc Engine Assets)
 Original author: Valve Software

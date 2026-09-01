@@ -47,7 +47,8 @@ SCPMTFxiaodui123@outlook.com
 
 - Valve Software – for Half-Life and the GoldSrc engine
 - Gearbox Software – for the High Definition Pack
-- Azure Sheep & PoV Team – for the HEV Barney model
+- ambient.impact and romka – for the HEV Barney model
+- Qwertyus – for barney HEV model edit to add magnum
 - The Half-Life modding community – for inspiration and support
 
 ---
