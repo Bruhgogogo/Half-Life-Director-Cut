@@ -194,7 +194,7 @@ void LinkUserMessages( void )
 	}
 
 	gmsgSelAmmo = REG_USER_MSG( "SelAmmo", sizeof(SelAmmo) );
-	gmsgCurWeapon = REG_USER_MSG( "CurWeapon", 3 );
+	gmsgCurWeapon = REG_USER_MSG( "CurWeapon", 4 );
 	gmsgGeigerRange = REG_USER_MSG( "Geiger", 1 );
 	gmsgFlashlight = REG_USER_MSG( "Flashlight", 2 );
 	gmsgFlashBattery = REG_USER_MSG( "FlashBat", 1 );
@@ -217,7 +217,7 @@ void LinkUserMessages( void )
 	gmsgGameMode = REG_USER_MSG( "GameMode", 1 );
 	gmsgMOTD = REG_USER_MSG( "MOTD", -1 );
 	gmsgServerName = REG_USER_MSG( "ServerName", -1 );
-	gmsgAmmoPickup = REG_USER_MSG( "AmmoPickup", 2 );
+	gmsgAmmoPickup = REG_USER_MSG( "AmmoPickup", 3 );
 	gmsgWeapPickup = REG_USER_MSG( "WeapPickup", 1 );
 	gmsgItemPickup = REG_USER_MSG( "ItemPickup", -1 );
 	gmsgHideWeapon = REG_USER_MSG( "HideWeapon", 1 );
@@ -225,7 +225,7 @@ void LinkUserMessages( void )
 	gmsgShowMenu = REG_USER_MSG( "ShowMenu", -1 );
 	gmsgShake = REG_USER_MSG( "ScreenShake", sizeof(ScreenShake) );
 	gmsgFade = REG_USER_MSG( "ScreenFade", sizeof(ScreenFade) );
-	gmsgAmmoX = REG_USER_MSG( "AmmoX", 2 );
+	gmsgAmmoX = REG_USER_MSG( "AmmoX", 3 );
 	gmsgTeamNames = REG_USER_MSG( "TeamNames", -1 );
 
 	gmsgStatusText = REG_USER_MSG( "StatusText", -1 );
@@ -482,7 +482,11 @@ int CBasePlayer::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, fl
 
 	flBonus = ARMOR_BONUS;
 	flRatio = ARMOR_RATIO;
-	finalDamage = flDamage * HEV_BASE_REDUCTION;
+
+	if (bitsDamageType & DMG_FALL || bitsDamageType & DMG_DROWN)
+		finalDamage = flDamage;
+	else
+		finalDamage = flDamage * HEV_BASE_REDUCTION;
 
 	if( ( bitsDamageType & DMG_BLAST ) && g_pGameRules->IsMultiplayer() )
 	{
@@ -920,7 +924,7 @@ void CBasePlayer::RemoveAllItems( BOOL removeSuit )
 	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( 0 );
-		WRITE_BYTE( 0 );
+		WRITE_SHORT( 0 );
 	MESSAGE_END();
 }
 
@@ -979,7 +983,7 @@ void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
 	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( 0XFF );
-		WRITE_BYTE( 0xFF );
+		WRITE_SHORT( 0xFF );
 	MESSAGE_END();
 
 	// reset FOV
@@ -1508,7 +1512,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( 0XFF );
-		WRITE_BYTE( 0xFF );
+		WRITE_SHORT( 0xFF );
 	MESSAGE_END();
 
 	// reset FOV
@@ -3962,7 +3966,7 @@ int CBasePlayer::GiveAmmo( int iCount, const char *szName, int iMax )
 		// Send the message that ammo has been picked up
 		MESSAGE_BEGIN( MSG_ONE, gmsgAmmoPickup, NULL, pev );
 			WRITE_BYTE( GetAmmoIndex( szName ) );		// ammo ID
-			WRITE_BYTE( iAdd );		// amount
+			WRITE_SHORT( iAdd );		// amount
 		MESSAGE_END();
 	}
 
@@ -4072,7 +4076,7 @@ void CBasePlayer::SendAmmoUpdate( void )
 			// send "Ammo" update message
 			MESSAGE_BEGIN( MSG_ONE, gmsgAmmoX, NULL, pev );
 				WRITE_BYTE( i );
-				WRITE_BYTE( Q_max( Q_min( m_rgAmmo[i], 254 ), 0 ) );  // clamp the value to one byte
+				WRITE_SHORT( Q_max( Q_min( m_rgAmmo[i], 65535 ), 0 ) );  // clamp the value to one short
 			MESSAGE_END();
 		}
 	}

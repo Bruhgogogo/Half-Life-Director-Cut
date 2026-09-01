@@ -816,7 +816,7 @@ int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 		MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pPlayer->pev );
 			WRITE_BYTE( state );
 			WRITE_BYTE( m_iId );
-			WRITE_BYTE( m_iClip );
+			WRITE_SHORT( m_iClip );
 		MESSAGE_END();
 
 		m_iClientClip = m_iClip;

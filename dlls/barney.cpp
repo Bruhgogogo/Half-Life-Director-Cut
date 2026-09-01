@@ -307,16 +307,16 @@ void CBarney::SetYawSpeed( void )
 	switch ( m_Activity )
 	{
 	case ACT_IDLE:		
-		ys = 80;
-		break;
-	case ACT_WALK:
-		ys = 80;
-		break;
-	case ACT_RUN:
 		ys = 100;
 		break;
+	case ACT_WALK:
+		ys = 100;
+		break;
+	case ACT_RUN:
+		ys = 120;
+		break;
 	default:
-		ys = 80;
+		ys = 100;
 		break;
 	}
 
@@ -391,7 +391,7 @@ void CBarney::BarneyFirePistol( void )
 		break;
 	}
 	case BarneyTypes::BARNEY_TYPE_HEV: {
-		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_PLAYER_357, 4, 80);
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_PLAYER_357, 4, 60);
 		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack3.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
 		break;
 	}
@@ -682,7 +682,7 @@ static float GetHEVDamageReduction(int damageType)
 	return 1.0f;
 }
 
-constexpr float HEV_BASE_REDUCTION = 0.75f;
+constexpr float HEV_BASE_REDUCTION = 0.25f;
 
 int CBarney::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
 {
