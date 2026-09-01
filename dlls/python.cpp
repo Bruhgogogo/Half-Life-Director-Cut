@@ -34,6 +34,9 @@ enum python_e
 	PYTHON_IDLE3
 };
 
+constexpr float PYTHON_PRIMARY_ATTACK_DURATION = 60.0 / 80.0f;
+constexpr float PYTHON_SECONDARY_ATTACK_DURATION = 0.5f; //This is actually is the ADS cooldown, i just thought this name is general :)
+
 LINK_ENTITY_TO_CLASS( weapon_python, CPython )
 LINK_ENTITY_TO_CLASS( weapon_357, CPython )
 
@@ -130,15 +133,6 @@ void CPython::Holster( int skiplocal /* = 0 */ )
 
 void CPython::SecondaryAttack( void )
 {
-#if CLIENT_DLL
-	if( !bIsMultiplayer() )
-#else
-	if( !g_pGameRules->IsMultiplayer() )
-#endif
-	{
-		return;
-	}
-
 	if( m_pPlayer->pev->fov != 0 )
 	{
 		m_fInZoom = FALSE;
@@ -150,7 +144,7 @@ void CPython::SecondaryAttack( void )
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 40;
 	}
 
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.5f;
+	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + PYTHON_SECONDARY_ATTACK_DURATION;
 }
 
 void CPython::PrimaryAttack()
@@ -206,7 +200,7 @@ void CPython::PrimaryAttack()
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate( "!HEV_AMO0", FALSE, 0 );
 
-	m_flNextPrimaryAttack = 0.75f;
+	m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + PYTHON_PRIMARY_ATTACK_DURATION;
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10.0f, 15.0f );
 }
 

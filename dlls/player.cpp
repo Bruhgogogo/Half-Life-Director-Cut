@@ -3455,7 +3455,7 @@ static const WeaponSoundMap g_WeaponSoundMap[] =
 	{"weapon_satchel", "!HEV_SATCHEL"},
 	{"weapon_tripmine", "!HEV_TRIPMINE"},
 	{"weapon_hornetgun", "!HEV_HORNET"},
-	{"weapon_squeak", "!HEV_SQUEEK"},
+	{"weapon_snark", "!HEV_SQUEEK"},
 	{"weapon_egon", "!HEV_EGON"},
 	{"weapon_gauss", "!HEV_GAUSS"},
 	{"weapon_crossbow", "!HEV_XBOW"}
@@ -3463,8 +3463,8 @@ static const WeaponSoundMap g_WeaponSoundMap[] =
 
 void CBasePlayer::OnGetItem(const char* itemName)
 {
-	// 12 is the total of weaponSoundMaps, remeber add it after add voice to weaponSoundMap :)
-	for (int i = 0; i < 12; i++)
+	// 13 is the total of weaponSoundMaps, remeber add it after add voice to weaponSoundMap :)
+	for (int i = 0; i < 13; i++)
 	{
 		if (CharEquals(itemName, g_WeaponSoundMap[i].weapon) &&
 			HasNamedPlayerItem(itemName) == FALSE)

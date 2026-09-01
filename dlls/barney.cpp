@@ -44,7 +44,7 @@ constexpr int BARNEY_BODY_GUNGONE			= 2;
 constexpr float BARNEY_PISTOL_RPM			= 60.0f / 240.0f;
 constexpr float BARNEY_MP5_RPM				= 60.0f / 700.0f;
 constexpr float BARNEY_SHOTGUN_RPM			= 60.0f / 240.0f;
-constexpr float BARNEY_RELOVER_RPM			= 60.0f / 180.0f;
+constexpr float BARNEY_RELOVER_RPM			= 60.0f / 80.0f;
 
 enum class BarneyTypes : int {
 	BARNEY_TYPE_PISTOL	= 0,
