@@ -42,8 +42,8 @@ constexpr int BARNEY_BODY_GUNDRAWN			= 1;
 constexpr int BARNEY_BODY_GUNGONE			= 2;
 
 constexpr float BARNEY_PISTOL_RPM			= 60.0f / 240.0f;
-constexpr float BARNEY_MP5_RPM				= 60.0f / 700.0f;
-constexpr float BARNEY_SHOTGUN_RPM			= 60.0f / 240.0f;
+constexpr float BARNEY_MP5_RPM				= 60.0f / 800.0f;
+constexpr float BARNEY_SHOTGUN_RPM			= 60.0f / 120.0f;
 constexpr float BARNEY_RELOVER_RPM			= 60.0f / 80.0f;
 
 enum class BarneyTypes : int {
@@ -381,7 +381,7 @@ void CBarney::BarneyFirePistol( void )
 		break;
 	}
 	case BarneyTypes::BARNEY_TYPE_MP5: {
-		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 2048, BULLET_MONSTER_MP5);
+		FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_5DEGREES, 2048, BULLET_MONSTER_MP5);
 		EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, "barney/ba_attack5.wav", 1.0f, ATTN_NORM, 0, 100 + pitchShift);
 		break;
 	}
@@ -534,22 +534,22 @@ void CBarney::Precache()
 
 BOOL CBarney::CanShoot()
 {
-	if (m_dead == TRUE) 
+	if (m_nextAttackTime > gpGlobals->time)
 		return FALSE;
 
-	if (IsAlive() == FALSE)  // For check
+	if (!IsAlive())
 		return FALSE;
 
 	if (m_hEnemy == NULL) 
 		return FALSE;
 
-	if (m_hEnemy->IsAlive() == FALSE) 
+	if (!m_hEnemy->IsAlive()) 
 		return FALSE;
 
-	if (FVisible(m_hEnemy->Center()) == FALSE) 
+	if (!FVisible(m_hEnemy->Center())) 
 		return FALSE;
 
-	if (m_fGunDrawn == FALSE) // Check if the gun is drawn
+	if (!m_fGunDrawn) // Check if the gun is drawn
 		return FALSE;
 
 	if (m_Activity != ACT_RANGE_ATTACK1 && m_Activity != ACT_RANGE_ATTACK2) // Final check is in activity
@@ -586,7 +586,7 @@ void CBarney::Think()
 
 	CBaseMonster::Think();
 
-	pev->nextthink = gpGlobals->time + RPM;
+	pev->nextthink = m_nextAttackTime;
 }
 
 // Init talk data

@@ -48,43 +48,49 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 //=========================================================
 // monster-specific DEFINE's
 //=========================================================
-#define	GRUNT_CLIP_SIZE					36 // how many bullets in a clip? - NOTE: 3 round burst sound, so keep as 3 * x!
-#define GRUNT_VOL						0.35		// volume of grunt sounds
-#define GRUNT_ATTN						ATTN_NORM	// attenutation of grunt sentences
-#define HGRUNT_LIMP_HEALTH				20
-#define HGRUNT_DMG_HEADSHOT				( DMG_BULLET | DMG_CLUB )	// damage types that can kill a grunt with a single headshot.
-#define HGRUNT_NUM_HEADS				2 // how many grunt heads are there? 
-#define HGRUNT_MINIMUM_HEADSHOT_DAMAGE			15 // must do at least this much damage in one shot to head to score a headshot kill
-#define	HGRUNT_SENTENCE_VOLUME				(float)0.35 // volume of grunt sentences
+constexpr int GRUNT_CLIP_SIZE = 30; // how many bullets in a clip? - NOTE: 3 round burst sound, so keep as 3 * x!
+constexpr float GRUNT_VOL = 0.35f;		// volume of grunt sounds
+constexpr float GRUNT_ATTN = ATTN_NORM;	// attenutation of grunt sentences
+constexpr int HGRUNT_LIMP_HEALTH = 20;
+constexpr int HGRUNT_DMG_HEADSHOT = (DMG_BULLET | DMG_CLUB);	// damage types that can kill a grunt with a single headshot.
+constexpr int HGRUNT_NUM_HEADS = 2; // how many grunt heads are there? 
+constexpr int HGRUNT_MINIMUM_HEADSHOT_DAMAGE = 15; // must do at least this much damage in one shot to head to score a headshot kill
+constexpr float HGRUNT_SENTENCE_VOLUME = 0.35f; // volume of grunt sentences
 
-#define HGRUNT_9MMAR				( 1 << 0)
-#define HGRUNT_HANDGRENADE			( 1 << 1)
-#define HGRUNT_GRENADELAUNCHER			( 1 << 2)
-#define HGRUNT_SHOTGUN				( 1 << 3)
+constexpr int HGRUNT_9MMAR = (1 << 0);
+constexpr int HGRUNT_HANDGRENADE = (1 << 1);
+constexpr int HGRUNT_GRENADELAUNCHER = (1 << 2);
+constexpr int HGRUNT_SHOTGUN = (1 << 3);
 
-#define HEAD_GROUP					1
-#define HEAD_GRUNT					0
-#define HEAD_COMMANDER					1
-#define HEAD_SHOTGUN					2
-#define HEAD_M203					3
-#define GUN_GROUP					2
-#define GUN_MP5						0
-#define GUN_SHOTGUN					1
-#define GUN_NONE					2
+constexpr int HEAD_GROUP = 1;
+constexpr int HEAD_GRUNT = 0;
+constexpr int HEAD_COMMANDER = 1;
+constexpr int HEAD_SHOTGUN = 2;
+constexpr int HEAD_M203 = 3;
+constexpr int GUN_GROUP = 2;
+constexpr int GUN_MP5 = 0;
+constexpr int GUN_SHOTGUN = 1;
+constexpr int GUN_NONE = 2;
+
+constexpr float HGRUNT_MP5_RPM = 60.0f / 800.0f;
+constexpr float HGRUNT_SHOTGUN_RPM = 60.0f / 120.0f;
+
+constexpr int HGRUNT_BURST_COUNT = 5;
+constexpr float HGRUNT_COOLDOWN_AFTER_BURST = 0.4f;
 
 //=========================================================
 // Monster's Anim Events Go Here
 //=========================================================
-#define		HGRUNT_AE_RELOAD		( 2 )
-#define		HGRUNT_AE_KICK			( 3 )
-#define		HGRUNT_AE_BURST1		( 4 )
-#define		HGRUNT_AE_BURST2		( 5 ) 
-#define		HGRUNT_AE_BURST3		( 6 ) 
-#define		HGRUNT_AE_GREN_TOSS		( 7 )
-#define		HGRUNT_AE_GREN_LAUNCH		( 8 )
-#define		HGRUNT_AE_GREN_DROP		( 9 )
-#define		HGRUNT_AE_CAUGHT_ENEMY		( 10 ) // grunt established sight with an enemy (player only) that had previously eluded the squad.
-#define		HGRUNT_AE_DROP_GUN		( 11 ) // grunt (probably dead) is dropping his mp5.
+constexpr int HGRUNT_AE_RELOAD = (2);
+constexpr int HGRUNT_AE_KICK = (3);
+constexpr int HGRUNT_AE_BURST1 = (4);
+constexpr int HGRUNT_AE_BURST2 = (5);
+constexpr int HGRUNT_AE_BURST3 = (6);
+constexpr int HGRUNT_AE_GREN_TOSS = (7);
+constexpr int HGRUNT_AE_GREN_LAUNCH = (8);
+constexpr int HGRUNT_AE_GREN_DROP = (9);
+constexpr int HGRUNT_AE_CAUGHT_ENEMY = (10); // grunt established sight with an enemy (player only) that had previously eluded the squad.
+constexpr int HGRUNT_AE_DROP_GUN = (11); // grunt (probably dead) is dropping his mp5.
 
 //=========================================================
 // monster-specific schedule types
@@ -132,6 +138,7 @@ public:
 	BOOL CheckMeleeAttack1( float flDot, float flDist );
 	BOOL CheckRangeAttack1( float flDot, float flDist );
 	BOOL CheckRangeAttack2( float flDot, float flDist );
+	BOOL CanShoot();
 	void CheckAmmo( void );
 	void SetActivity( Activity NewActivity );
 	void StartTask( Task_t *pTask );
@@ -145,6 +152,8 @@ public:
 	void PrescheduleThink( void );
 	void GibMonster( void );
 	void SpeakSentence( void );
+	void Think();
+	float GetHGruntRPM();
 
 	int Save( CSave &save ); 
 	int Restore( CRestore &restore );
@@ -168,6 +177,9 @@ public:
 	float m_flNextGrenadeCheck;
 	float m_flNextPainTime;
 	float m_flLastEnemySightTime;
+	float m_flNextShootTime;
+
+	int m_iBurst;
 
 	Vector m_vecTossVelocity;
 
@@ -191,6 +203,7 @@ LINK_ENTITY_TO_CLASS( monster_human_grunt, CHGrunt )
 TYPEDESCRIPTION	CHGrunt::m_SaveData[] =
 {
 	DEFINE_FIELD( CHGrunt, m_flNextGrenadeCheck, FIELD_TIME ),
+	DEFINE_FIELD( CHGrunt, m_flNextShootTime, FIELD_TIME ),
 	DEFINE_FIELD( CHGrunt, m_flNextPainTime, FIELD_TIME ),
 	//DEFINE_FIELD( CHGrunt, m_flLastEnemySightTime, FIELD_TIME ), // don't save, go to zero
 	DEFINE_FIELD( CHGrunt, m_vecTossVelocity, FIELD_VECTOR ),
@@ -202,6 +215,7 @@ TYPEDESCRIPTION	CHGrunt::m_SaveData[] =
 	//DEFINE_FIELD( CShotgun, m_iBrassShell, FIELD_INTEGER ),
 	//DEFINE_FIELD( CShotgun, m_iShotgunShell, FIELD_INTEGER ),
 	DEFINE_FIELD( CHGrunt, m_iSentence, FIELD_INTEGER ),
+	DEFINE_FIELD( CHGrunt, m_iBurst, FIELD_INTEGER ),
 };
 
 IMPLEMENT_SAVERESTORE( CHGrunt, CSquadMonster )
@@ -782,6 +796,37 @@ Vector CHGrunt::GetGunPosition()
 	}
 }
 
+float CHGrunt::GetHGruntRPM()
+{
+	if (FBitSet(pev->weapons, HGRUNT_SHOTGUN)) //If the hgrunt is a shotguner
+		return HGRUNT_SHOTGUN_RPM;
+
+	return HGRUNT_MP5_RPM;
+}
+
+BOOL CHGrunt::CanShoot()
+{
+	if (m_flNextShootTime > gpGlobals->time)
+		return FALSE;
+
+	if (IsAlive() == FALSE)
+		return FALSE;
+
+	if (m_hEnemy == NULL)
+		return FALSE;
+
+	if (m_hEnemy->IsAlive() == FALSE)
+		return FALSE;
+
+	if (FVisible(m_hEnemy->Center()) == FALSE)
+		return FALSE;
+
+	if (m_Activity != ACT_RANGE_ATTACK1 && m_Activity != ACT_RANGE_ATTACK2) // Final check is in activity
+		return FALSE;
+
+	return TRUE;
+}
+
 //=========================================================
 // Shoot
 //=========================================================
@@ -799,7 +844,7 @@ void CHGrunt::Shoot( void )
 
 	Vector vecShellVelocity = gpGlobals->v_right * RANDOM_FLOAT( 40, 90 ) + gpGlobals->v_up * RANDOM_FLOAT( 75, 200 ) + gpGlobals->v_forward * RANDOM_FLOAT( -40, 40 );
 	EjectBrass( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iBrassShell, TE_BOUNCE_SHELL );
-	FireBullets( 1, vecShootOrigin, vecShootDir, VECTOR_CONE_10DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
+	FireBullets( 1, vecShootOrigin, vecShootDir, VECTOR_CONE_3DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
 
 	pev->effects |= EF_MUZZLEFLASH;
 
@@ -807,6 +852,17 @@ void CHGrunt::Shoot( void )
 
 	Vector angDir = UTIL_VecToAngles( vecShootDir );
 	SetBlending( 0, angDir.x );
+	
+	if (RANDOM_LONG(0, 1))
+	{
+		EMIT_SOUND(ENT(pev), CHAN_WEAPON, "hgrunt/gr_mgun1.wav", 1, ATTN_NORM);
+	}
+	else
+	{
+		EMIT_SOUND(ENT(pev), CHAN_WEAPON, "hgrunt/gr_mgun2.wav", 1, ATTN_NORM);
+	}
+
+	CSoundEnt::InsertSound(bits_SOUND_COMBAT, pev->origin, 384, 0.3); // Insert a vitral sound for other NPC
 }
 
 //=========================================================
@@ -826,7 +882,7 @@ void CHGrunt::Shotgun( void )
 
 	Vector vecShellVelocity = gpGlobals->v_right * RANDOM_FLOAT( 40, 90 ) + gpGlobals->v_up * RANDOM_FLOAT( 75, 200 ) + gpGlobals->v_forward * RANDOM_FLOAT( -40, 40 );
 	EjectBrass( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iShotgunShell, TE_BOUNCE_SHOTSHELL ); 
-	FireBullets( gSkillData.hgruntShotgunPellets, vecShootOrigin, vecShootDir, VECTOR_CONE_15DEGREES, 2048, BULLET_PLAYER_BUCKSHOT, 0 ); // shoot +-7.5 degrees
+	FireBullets( gSkillData.hgruntShotgunPellets, vecShootOrigin, vecShootDir, VECTOR_CONE_8DEGREES, 2048, BULLET_PLAYER_BUCKSHOT, 0 ); // shoot +-7.5 degrees
 
 	pev->effects |= EF_MUZZLEFLASH;
 
@@ -834,6 +890,43 @@ void CHGrunt::Shotgun( void )
 
 	Vector angDir = UTIL_VecToAngles( vecShootDir );
 	SetBlending( 0, angDir.x );
+	
+	EMIT_SOUND(ENT(pev), CHAN_WEAPON, "weapons/sbarrel1.wav", 1, ATTN_NORM);
+	CSoundEnt::InsertSound(bits_SOUND_COMBAT, pev->origin, 384, 0.3); // Insert a vitral sound for other NPC
+}
+
+void CHGrunt::Think()
+{
+	float RPM = GetHGruntRPM();
+
+	if (CanShoot())
+	{
+		BOOL isShotguner = FBitSet(pev->weapons, HGRUNT_SHOTGUN);
+
+		if (isShotguner)
+		{
+			Shotgun();
+			m_flNextShootTime = gpGlobals->time + RPM;
+		}
+		else
+		{
+			if (m_iBurst < HGRUNT_BURST_COUNT)
+			{
+				Shoot();
+				m_iBurst++;
+				m_flNextShootTime = gpGlobals->time + RPM;
+			}
+			else
+			{
+				m_iBurst = 0;
+				m_flNextShootTime = gpGlobals->time + HGRUNT_COOLDOWN_AFTER_BURST;
+			}
+		}
+	}
+
+	CSquadMonster::Think();
+
+	pev->nextthink = m_flNextShootTime;
 }
 
 //=========================================================
@@ -909,36 +1002,6 @@ void CHGrunt::HandleAnimEvent( MonsterEvent_t *pEvent )
 			CGrenade::ShootTimed( pev, pev->origin + gpGlobals->v_forward * 17 - gpGlobals->v_right * 27 + gpGlobals->v_up * 6, g_vecZero, 3 );
 		}
 			break;
-		case HGRUNT_AE_BURST1:
-		{
-			if( FBitSet( pev->weapons, HGRUNT_9MMAR ) )
-			{
-				Shoot();
-
-				// the first round of the three round burst plays the sound and puts a sound in the world sound list.
-				if( RANDOM_LONG( 0, 1 ) )
-				{
-					EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "hgrunt/gr_mgun1.wav", 1, ATTN_NORM );
-				}
-				else
-				{
-					EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "hgrunt/gr_mgun2.wav", 1, ATTN_NORM );
-				}
-			}
-			else
-			{
-				Shotgun();
-
-				EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/sbarrel1.wav", 1, ATTN_NORM );
-			}
-
-			CSoundEnt::InsertSound( bits_SOUND_COMBAT, pev->origin, 384, 0.3 );
-		}
-			break;
-		case HGRUNT_AE_BURST2:
-		case HGRUNT_AE_BURST3:
-			Shoot();
-			break;
 		case HGRUNT_AE_KICK:
 		{
 			CBaseEntity *pHurt = Kick();
@@ -988,7 +1051,9 @@ void CHGrunt::Spawn()
 	m_MonsterState		= MONSTERSTATE_NONE;
 	m_flNextGrenadeCheck	= gpGlobals->time + 1;
 	m_flNextPainTime	= gpGlobals->time;
+	m_flNextShootTime = gpGlobals->time;
 	m_iSentence		= HGRUNT_SENT_NONE;
+	m_iBurst		= 0;
 
 	m_afCapability		= bits_CAP_SQUAD | bits_CAP_TURN_HEAD | bits_CAP_DOORS_GROUP;
 
@@ -1030,6 +1095,8 @@ void CHGrunt::Spawn()
 		SetBodygroup( HEAD_GROUP, HEAD_M203 );
 		pev->skin = 1; // alway dark skin
 	}
+
+	pev->nextthink = gpGlobals->time + GetHGruntRPM();
 
 	CTalkMonster::g_talkWaitTime = 0;
 
