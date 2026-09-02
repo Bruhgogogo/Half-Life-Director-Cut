@@ -3448,7 +3448,7 @@ static const WeaponSoundMap g_WeaponSoundMap[] =
 {
 	{"weapon_9mmhandgun", "!HEV_PISTOL"},
 	{"weapon_shotgun", "!HEV_SHOTGUN"},
-	{"weapon_grenade", "!HEV_GRENADE"},
+	{"weapon_handgrenade", "!HEV_GRENADE"},
 	{"weapon_9mmAR", "!HEV_ASSAULT"},
 	{"weapon_357", "!HEV_44PISTOL"},
 	{"weapon_rpg", "!HEV_RPG"},
