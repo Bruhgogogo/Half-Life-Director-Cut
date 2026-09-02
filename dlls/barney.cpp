@@ -102,7 +102,6 @@ public:
 	BOOL m_dead;
 	BarneyTypes m_barneyTypes;
 
-	// UNDONE: What is this for?  It isn't used?
 	float m_flPlayerDamage;// how much pain has the player inflicted on me?
 
 	CUSTOM_SCHEDULES
@@ -448,7 +447,12 @@ void CBarney::KeyValue(KeyValueData* pkvd)
 {
 	if (FStrEq(pkvd->szKeyName, "barney_type_override"))
 	{
-		m_barneyTypes = static_cast<BarneyTypes>(atoi(pkvd->szValue));
+		int type = atoi(pkvd->szValue);
+
+		type = Q_min(type, 3);
+		type = Q_max(type, 0);
+
+		m_barneyTypes = static_cast<BarneyTypes>(type);
 		pkvd->fHandled = TRUE;
 	}
 	else
@@ -492,14 +496,12 @@ void CBarney::Spawn()
 
 	pev->body = 0; // gun in holster
 	m_fGunDrawn = FALSE;
+	m_dead = FALSE;
 
 	m_afCapability = bits_CAP_HEAR | bits_CAP_TURN_HEAD | bits_CAP_DOORS_GROUP;
 
 	MonsterInit();
 	SetUse( &CTalkMonster::FollowerUse );
-
-	// Hey guys we got speeeeeddddddd up! For mp5 barney ou come on!
-	pev->nextthink = gpGlobals->time + GetBarneyRPM();
 }
 
 //=========================================================
@@ -540,7 +542,7 @@ BOOL CBarney::CanShoot()
 	if (!IsAlive())
 		return FALSE;
 
-	if (m_hEnemy == NULL) 
+	if (!m_hEnemy) 
 		return FALSE;
 
 	if (!m_hEnemy->IsAlive()) 
@@ -577,16 +579,14 @@ const float CBarney::GetBarneyRPM()
 
 void CBarney::Think()
 {
-	float RPM = GetBarneyRPM();
-
 	if (CanShoot()) {
 		BarneyFirePistol();
-		m_nextAttackTime = gpGlobals->time + RPM;
+		m_nextAttackTime = gpGlobals->time + GetBarneyRPM();
 	}
 
-	CBaseMonster::Think();
+	CTalkMonster::Think();
 
-	pev->nextthink = m_nextAttackTime;
+	pev->nextthink = gpGlobals->time + 0.05f;
 }
 
 // Init talk data

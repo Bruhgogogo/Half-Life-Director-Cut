@@ -809,16 +809,16 @@ BOOL CHGrunt::CanShoot()
 	if (m_flNextShootTime > gpGlobals->time)
 		return FALSE;
 
-	if (IsAlive() == FALSE)
+	if (!IsAlive())
 		return FALSE;
 
-	if (m_hEnemy == NULL)
+	if (!m_hEnemy)
 		return FALSE;
 
-	if (m_hEnemy->IsAlive() == FALSE)
+	if (!m_hEnemy->IsAlive())
 		return FALSE;
 
-	if (FVisible(m_hEnemy->Center()) == FALSE)
+	if (!FVisible(m_hEnemy->Center()))
 		return FALSE;
 
 	if (m_Activity != ACT_RANGE_ATTACK1 && m_Activity != ACT_RANGE_ATTACK2) // Final check is in activity
@@ -897,11 +897,10 @@ void CHGrunt::Shotgun( void )
 
 void CHGrunt::Think()
 {
-	float RPM = GetHGruntRPM();
-
-	if (CanShoot())
-	{
+	if (CanShoot()) {
 		BOOL isShotguner = FBitSet(pev->weapons, HGRUNT_SHOTGUN);
+
+		float RPM = GetHGruntRPM();
 
 		if (isShotguner)
 		{
@@ -926,7 +925,7 @@ void CHGrunt::Think()
 
 	CSquadMonster::Think();
 
-	pev->nextthink = m_flNextShootTime;
+	pev->nextthink = gpGlobals->time + 0.05f;
 }
 
 //=========================================================
@@ -1095,8 +1094,6 @@ void CHGrunt::Spawn()
 		SetBodygroup( HEAD_GROUP, HEAD_M203 );
 		pev->skin = 1; // alway dark skin
 	}
-
-	pev->nextthink = gpGlobals->time + GetHGruntRPM();
 
 	CTalkMonster::g_talkWaitTime = 0;
 
