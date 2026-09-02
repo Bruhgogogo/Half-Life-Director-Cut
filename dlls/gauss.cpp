@@ -621,8 +621,8 @@ class CGaussAmmo : public CBasePlayerAmmo
 	{ 
 		if( pOther->GiveAmmo( AMMO_URANIUMBOX_GIVE, "uranium", URANIUM_MAX_CARRY ) != -1 )
 		{
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, "player/geiger6.wav", 1, ATTN_NORM );
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "weapons/9mm_clip.wav", 1, ATTN_NORM);
+			EMIT_SOUND(ENT(pev), CHAN_BODY, "player/geiger6.wav", 1, ATTN_NORM);
 			return TRUE;
 		}
 		return FALSE;
