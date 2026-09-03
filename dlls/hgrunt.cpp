@@ -48,49 +48,54 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 //=========================================================
 // monster-specific DEFINE's
 //=========================================================
-constexpr int GRUNT_CLIP_SIZE = 30; // how many bullets in a clip? - NOTE: 3 round burst sound, so keep as 3 * x!
-constexpr float GRUNT_VOL = 0.35f;		// volume of grunt sounds
-constexpr float GRUNT_ATTN = ATTN_NORM;	// attenutation of grunt sentences
-constexpr int HGRUNT_LIMP_HEALTH = 20;
-constexpr int HGRUNT_DMG_HEADSHOT = (DMG_BULLET | DMG_CLUB);	// damage types that can kill a grunt with a single headshot.
-constexpr int HGRUNT_NUM_HEADS = 2; // how many grunt heads are there? 
-constexpr int HGRUNT_MINIMUM_HEADSHOT_DAMAGE = 15; // must do at least this much damage in one shot to head to score a headshot kill
-constexpr float HGRUNT_SENTENCE_VOLUME = 0.35f; // volume of grunt sentences
+constexpr int GRUNT_CLIP_SIZE					= 30; // how many bullets in a clip? - NOTE: 3 round burst sound, so keep as 3 * x!
+constexpr float GRUNT_VOL						= 0.35f;		// volume of grunt sounds
+constexpr float GRUNT_ATTN						= ATTN_NORM;	// attenutation of grunt sentences
+constexpr int HGRUNT_LIMP_HEALTH				= 20;
+constexpr int HGRUNT_DMG_HEADSHOT				= (DMG_BULLET | DMG_CLUB);	// damage types that can kill a grunt with a single headshot.
+constexpr int HGRUNT_NUM_HEADS					= 2; // how many grunt heads are there? 
+constexpr int HGRUNT_MINIMUM_HEADSHOT_DAMAGE	= 15; // must do at least this much damage in one shot to head to score a headshot kill
+constexpr float HGRUNT_SENTENCE_VOLUME			= 0.35f; // volume of grunt sentences
 
-constexpr int HGRUNT_9MMAR = (1 << 0);
-constexpr int HGRUNT_HANDGRENADE = (1 << 1);
-constexpr int HGRUNT_GRENADELAUNCHER = (1 << 2);
-constexpr int HGRUNT_SHOTGUN = (1 << 3);
+constexpr int HGRUNT_9MMAR						= (1 << 0);
+constexpr int HGRUNT_HANDGRENADE				= (1 << 1);
+constexpr int HGRUNT_GRENADELAUNCHER			= (1 << 2);
+constexpr int HGRUNT_SHOTGUN					= (1 << 3);
 
-constexpr int HEAD_GROUP = 1;
-constexpr int HEAD_GRUNT = 0;
-constexpr int HEAD_COMMANDER = 1;
-constexpr int HEAD_SHOTGUN = 2;
-constexpr int HEAD_M203 = 3;
-constexpr int GUN_GROUP = 2;
-constexpr int GUN_MP5 = 0;
-constexpr int GUN_SHOTGUN = 1;
-constexpr int GUN_NONE = 2;
+constexpr int HEAD_GROUP						= 1;
+constexpr int HEAD_GRUNT						= 0;
+constexpr int HEAD_COMMANDER					= 1;
+constexpr int HEAD_SHOTGUN						= 2;
+constexpr int HEAD_M203							= 3;
+constexpr int GUN_GROUP							= 2;
+constexpr int GUN_MP5							= 0;
+constexpr int GUN_SHOTGUN						= 1;
+constexpr int GUN_NONE							= 2;
 
-constexpr float HGRUNT_MP5_RPM = 60.0f / 800.0f;
-constexpr float HGRUNT_SHOTGUN_RPM = 60.0f / 120.0f;
+constexpr float HGRUNT_MP5_RPM					= 60.0f / 800.0f;
+constexpr float HGRUNT_SHOTGUN_RPM				= 60.0f / 120.0f;
 
-constexpr int HGRUNT_BURST_COUNT = 5;
-constexpr float HGRUNT_COOLDOWN_AFTER_BURST = 0.4f;
+constexpr int HGRUNT_BURST_COUNT				= 5;
+constexpr float HGRUNT_COOLDOWN_AFTER_BURST		= 0.4f;
 
 //=========================================================
 // Monster's Anim Events Go Here
 //=========================================================
-constexpr int HGRUNT_AE_RELOAD = (2);
-constexpr int HGRUNT_AE_KICK = (3);
-constexpr int HGRUNT_AE_BURST1 = (4);
-constexpr int HGRUNT_AE_BURST2 = (5);
-constexpr int HGRUNT_AE_BURST3 = (6);
-constexpr int HGRUNT_AE_GREN_TOSS = (7);
-constexpr int HGRUNT_AE_GREN_LAUNCH = (8);
-constexpr int HGRUNT_AE_GREN_DROP = (9);
-constexpr int HGRUNT_AE_CAUGHT_ENEMY = (10); // grunt established sight with an enemy (player only) that had previously eluded the squad.
-constexpr int HGRUNT_AE_DROP_GUN = (11); // grunt (probably dead) is dropping his mp5.
+constexpr int HGRUNT_AE_RELOAD					= (2);
+constexpr int HGRUNT_AE_KICK					= (3);
+constexpr int HGRUNT_AE_BURST1					= (4);
+constexpr int HGRUNT_AE_BURST2					= (5);
+constexpr int HGRUNT_AE_BURST3					= (6);
+constexpr int HGRUNT_AE_GREN_TOSS				= (7);
+constexpr int HGRUNT_AE_GREN_LAUNCH				= (8);
+constexpr int HGRUNT_AE_GREN_DROP				= (9);
+constexpr int HGRUNT_AE_CAUGHT_ENEMY			= (10); // grunt established sight with an enemy (player only) that had previously eluded the squad.
+constexpr int HGRUNT_AE_DROP_GUN				= (11); // grunt (probably dead) is dropping his mp5.
+
+//=========================================================
+// Monster-specific conditions
+//=========================================================
+constexpr int bits_COND_GRUNT_NOFIRE = (bits_COND_SPECIAL1);
 
 //=========================================================
 // monster-specific schedule types
@@ -119,11 +124,6 @@ enum
 	TASK_GRUNT_SPEAK_SENTENCE,
 	TASK_GRUNT_CHECK_FIRE
 };
-
-//=========================================================
-// monster-specific conditions
-//=========================================================
-#define bits_COND_GRUNT_NOFIRE	( bits_COND_SPECIAL1 )
 
 class CHGrunt : public CSquadMonster
 {
@@ -176,8 +176,8 @@ public:
 	// not every server frame.
 	float m_flNextGrenadeCheck;
 	float m_flNextPainTime;
-	float m_flLastEnemySightTime;
 	float m_flNextShootTime;
+	float m_flLastEnemySightTime;
 
 	int m_iBurst;
 

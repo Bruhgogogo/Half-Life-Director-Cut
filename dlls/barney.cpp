@@ -33,18 +33,18 @@
 //=========================================================
 
 // first flag is barney dying for scripted sequences?
-constexpr int BARNEY_AE_DRAW				= 2;
-constexpr int BARNEY_AE_SHOOT				= 3;
-constexpr int BARNEY_AE_HOLSTER				= 4;
+constexpr int BARNEY_AE_DRAW			= 2;
+constexpr int BARNEY_AE_SHOOT			= 3;
+constexpr int BARNEY_AE_HOLSTER			= 4;
 
-constexpr int BARNEY_BODY_GUNHOLSTERED		= 0;
-constexpr int BARNEY_BODY_GUNDRAWN			= 1;
-constexpr int BARNEY_BODY_GUNGONE			= 2;
+constexpr int BARNEY_BODY_GUNHOLSTERED	= 0;
+constexpr int BARNEY_BODY_GUNDRAWN		= 1;
+constexpr int BARNEY_BODY_GUNGONE		= 2;
 
-constexpr float BARNEY_PISTOL_RPM			= 60.0f / 240.0f;
-constexpr float BARNEY_MP5_RPM				= 60.0f / 800.0f;
-constexpr float BARNEY_SHOTGUN_RPM			= 60.0f / 120.0f;
-constexpr float BARNEY_RELOVER_RPM			= 60.0f / 80.0f;
+constexpr float BARNEY_PISTOL_RPM		= 60.0f / 240.0f;
+constexpr float BARNEY_MP5_RPM			= 60.0f / 800.0f;
+constexpr float BARNEY_SHOTGUN_RPM		= 60.0f / 120.0f;
+constexpr float BARNEY_RELOVER_RPM		= 60.0f / 80.0f;
 
 enum class BarneyTypes : int {
 	BARNEY_TYPE_PISTOL	= 0,
@@ -306,16 +306,16 @@ void CBarney::SetYawSpeed( void )
 	switch ( m_Activity )
 	{
 	case ACT_IDLE:		
-		ys = 100;
-		break;
-	case ACT_WALK:
-		ys = 100;
-		break;
-	case ACT_RUN:
 		ys = 120;
 		break;
+	case ACT_WALK:
+		ys = 120;
+		break;
+	case ACT_RUN:
+		ys = 160;
+		break;
 	default:
-		ys = 100;
+		ys = 120;
 		break;
 	}
 
