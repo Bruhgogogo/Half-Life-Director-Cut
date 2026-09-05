@@ -1568,20 +1568,58 @@ void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 */
 }
 
+static vec3_t velocity = { 0, 0, 0 };
+
+static float currentSpeed = 0.0f;
+static float currentDamping = 0.0f;
+
 /*
 =============
 V_DropPunchAngle
 
 =============
 */
+
 void V_DropPunchAngle( float frametime, float *ev_punchangle )
 {
-	float len;
+	/*float len;
 
 	len = VectorNormalize( ev_punchangle );
 	len -= ( 10.0f + len * 0.5f ) * (float)frametime;
 	len = Q_max( len, 0.0f );
-	VectorScale( ev_punchangle, len, ev_punchangle );
+	VectorScale( ev_punchangle, len, ev_punchangle );*/
+
+	vec3_t springAccel = { 0, 0, 0 };
+	vec3_t zero = { 0, 0, 0 };
+
+	VectorSubtract(zero, ev_punchangle, springAccel); //deviation = -current
+	VectorScale(springAccel, currentSpeed, springAccel); //springAccel = speed * (-current)
+
+	vec3_t dampAccel = { 0, 0, 0 };
+
+	VectorScale(velocity, currentDamping, dampAccel); //dampAccel = damping * velocity
+
+	vec3_t netForce = { 0, 0, 0 };
+	VectorSubtract(springAccel, dampAccel, netForce); //netForce = springAccel - dampAccel
+
+	VectorScale(netForce, (float)frametime, netForce); //deltaVelocity = netForce * dt
+
+	VectorAdd(velocity, netForce, velocity); //velocity_new = velocity_old + deltaVelocity
+
+	vec3_t posDelta = { 0, 0, 0 };
+	VectorScale(velocity, (float)frametime, posDelta); //deltaPosition = velocity * dt
+
+	VectorAdd(ev_punchangle, posDelta, ev_punchangle); // current_new = current_old + deltaPosition
+
+	if (fabs(ev_punchangle[0]) < 0.0001f && fabs(velocity[0]) < 0.0001f &&
+		fabs(ev_punchangle[1]) < 0.0001f && fabs(velocity[1]) < 0.0001f &&
+		fabs(ev_punchangle[2]) < 0.0001f && fabs(velocity[2]) < 0.0001f) {
+		VectorClear(ev_punchangle);
+		VectorClear(velocity);
+	}
+
+	//velocity += (speed * (-current) - damping * velocity) * dt
+	//current += velocity * dt
 }
 
 /*
@@ -1591,9 +1629,14 @@ V_PunchAxis
 Client side punch effect
 =============
 */
-void V_PunchAxis( int axis, float punch )
+void V_PunchAxis( int axis, float punch, float speed = 52.0f, float damping = 4.0f )
 {
-	g_ev_punchangle[axis] = punch;
+	// ev_punchangle[axis] = punch;
+
+	currentSpeed = speed;
+	currentDamping = damping;
+
+	velocity[axis] += punch;
 }
 
 /*

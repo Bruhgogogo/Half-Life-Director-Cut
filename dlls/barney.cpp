@@ -60,7 +60,7 @@ public:
 	void Precache( void );
 	void SetYawSpeed( void );
 	int ISoundMask( void );
-	void BarneyFirePistol( void );
+	void BarneyFire( void );
 	BOOL CanShoot();
 	const float GetBarneyRPM();
 	void AlertSound( void );
@@ -350,10 +350,10 @@ BOOL CBarney::CheckRangeAttack1( float flDot, float flDist )
 }
 
 //=========================================================
-// BarneyFirePistol - shoots one round from the pistol at
+// BarneyFire - shoots one round from the gun at
 // the enemy barney is facing.
 //=========================================================
-void CBarney::BarneyFirePistol( void )
+void CBarney::BarneyFire( void )
 {
 	Vector vecShootOrigin;
 
@@ -580,7 +580,7 @@ const float CBarney::GetBarneyRPM()
 void CBarney::Think()
 {
 	if (CanShoot()) {
-		BarneyFirePistol();
+		BarneyFire();
 		m_nextAttackTime = gpGlobals->time + GetBarneyRPM();
 	}
 
