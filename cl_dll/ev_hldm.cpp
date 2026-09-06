@@ -86,6 +86,81 @@ void EV_VehiclePitchAdjust( event_args_t *args );
 #define VECTOR_CONE_15DEGREES Vector( 0.13053f, 0.13053f, 0.13053f )
 #define VECTOR_CONE_20DEGREES Vector( 0.17365f, 0.17365f, 0.17365f )
 
+struct WeaponRecoilData
+{
+	float PITCH_MAX;
+	float PITCH_MIN;
+	float PITCH_SPEED;
+	float PITCH_DAMPING;
+
+	float YAW_MAX;
+	float YAW_MIN;
+	float YAW_SPEED;
+	float YAW_DAMPING;
+
+	float ROLL_MAX;
+	float ROLL_MIN;
+	float ROLL_SPEED;
+	float ROLL_DAMPING;
+
+	WeaponRecoilData(
+		float pitchMax, float pitchMin, float pitchSpeed, float pitchDamping,
+		float yawMax, float yawMin, float yawSpeed, float yawDamping,
+		float rollMax, float rollMin, float rollSpeed, float rollDamping)
+	{
+		PITCH_MAX = pitchMax;
+		PITCH_MIN = pitchMin;
+		PITCH_SPEED = pitchSpeed;
+		PITCH_DAMPING = pitchDamping;
+
+		YAW_MAX = yawMax;
+		YAW_MIN = yawMin;
+		YAW_SPEED = yawSpeed;
+		YAW_DAMPING = yawDamping;
+
+		ROLL_MAX = rollMax;
+		ROLL_MIN = rollMin;
+		ROLL_SPEED = rollSpeed;
+		ROLL_DAMPING = rollDamping;
+	}
+};
+
+// ====================== GLOCK ======================
+#define GLOCK1_RECOIL_DATA WeaponRecoilData(-48.0f, -52.0f, 58.0f, 8.0f, 18.0f, -18.0f, 62.0f, 10.0f, 10.0f, -10.0f, 62.0f, 10.0f)
+#define GLOCK2_RECOIL_DATA WeaponRecoilData(-48.0f, -52.0f, 62.0f, 8.0f, 22.0f, -22.0f, 68.0f, 10.0f, 12.0f, -12.0f, 68.0f, 10.0f)
+
+// ====================== SHOTGUN ======================
+#define SHOTGUN_DOUBLE_RECOIL_DATA WeaponRecoilData(-120.0f, -160.0f, 38.0f, 8.0f, 30.0f, -30.0f, 42.0f, 10.0f, 16.0f, -16.0f, 42.0f, 10.0f)
+#define SHOTGUN_SINGLE_RECOIL_DATA WeaponRecoilData(-100.0f, -120.0f, 52.0f, 8.0f, 20.0f, -20.0f, 58.0f, 10.0f, 12.0f, -12.0f, 58.0f, 10.0f)
+
+// ====================== MP5 ======================
+#define MP5_RECOIL_DATA WeaponRecoilData(-21.0f, -24.0f, 58.0f, 6.0f, 8.0f, -8.0f, 62.0f, 8.0f, 6.0f, -6.0f, 62.0f, 8.0f)
+#define MP5_GRENADE_RECOIL_DATA WeaponRecoilData(-100.0f, -100.0f, 58.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+
+// ====================== PYTHON (.357) ======================
+#define PYTHON_RECOIL_DATA WeaponRecoilData(-100.0f, -100.0f, 58.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+
+// ====================== GAUSS ======================
+#define GAUSS_RECOIL_DATA WeaponRecoilData(-48.0f, -52.0f, 52.0f, 8.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, -8.0f, 58.0f, 10.0f)
+
+// ====================== RPG ======================
+#define RPG_RECOIL_DATA WeaponRecoilData(-120.0f, -120.0f, 52.0f, 12.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+
+// ====================== HORNET ======================
+#define HORNET_RECOIL_DATA WeaponRecoilData(-32.0f, -32.0f, 62.0f, 8.0f, 0.0f, 0.0f, 0.0f, 0.0f, 6.0f, -6.0f, 58.0f, 10.0f)
+
+static void ApplyRecoil(const WeaponRecoilData& data)
+{
+	if (data.PITCH_MAX != 0.0f || data.PITCH_MIN != 0.0f)
+		V_PunchAxis(0, gEngfuncs.pfnRandomFloat(data.PITCH_MIN, data.PITCH_MAX), data.PITCH_SPEED, data.PITCH_DAMPING);
+
+	if (data.YAW_MAX != 0.0f || data.YAW_MIN != 0.0f)
+		V_PunchAxis(1, gEngfuncs.pfnRandomFloat(data.YAW_MIN, data.YAW_MAX), data.YAW_SPEED, data.YAW_DAMPING);
+
+	if (data.ROLL_MAX != 0.0f || data.ROLL_MIN != 0.0f)
+		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(data.ROLL_MIN, data.ROLL_MAX), data.ROLL_SPEED, data.ROLL_DAMPING);
+}
+
 // play a strike sound based on the texture that was hit by the attack traceline.  VecSrc/VecEnd are the
 // original traceline endpoints used by the attacker, iBulletType is the type of bullet that hit the texture.
 // returns volume of strike instrument (crowbar) to play
@@ -491,9 +566,7 @@ void EV_FireGlock1( event_args_t *args )
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation(empty ? GLOCK_SHOOT_EMPTY : GLOCK_SHOOT, 0);
 
-		V_PunchAxis(0, -gEngfuncs.pfnRandomFloat(48.0f, 52.0f), 58.0f, 8.0f);
-		V_PunchAxis(1, gEngfuncs.pfnRandomFloat(-18.0f, 18.0f), 62.0f, 10.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-10.0f, 10.0f), 62.0f, 10.0f);
+		ApplyRecoil(GLOCK1_RECOIL_DATA);
 	}
 
 	EV_GetDefaultShellInfo(args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 20, -12, 4);
@@ -538,9 +611,7 @@ void EV_FireGlock2( event_args_t *args )
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation(empty ? GLOCK_SHOOT_EMPTY : GLOCK_SHOOT, 0);
 
-		V_PunchAxis(0, -gEngfuncs.pfnRandomFloat(48.0f, 52.0f), 62.0f, 8.0f);
-		V_PunchAxis(1, gEngfuncs.pfnRandomFloat(-22.0f, 22.0f), 68.0f, 10.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-12.0f, 12.0f), 68.0f, 10.0f);
+		ApplyRecoil(GLOCK2_RECOIL_DATA);
 	}
 
 	EV_GetDefaultShellInfo(args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 20, -12, 4);
@@ -592,9 +663,7 @@ void EV_FireShotGunDouble( event_args_t *args )
 		// Add muzzle flash to current weapon model
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( SHOTGUN_FIRE2, 0 );
-		V_PunchAxis(0, -gEngfuncs.pfnRandomFloat(120.0f, 160.0f), 38.0f, 8.0f);
-		V_PunchAxis(1, gEngfuncs.pfnRandomFloat(-30.0f, 30.0f), 42.0f, 10.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-16.0f, 16.0f), 42.0f, 10.0f);
+		ApplyRecoil(SHOTGUN_DOUBLE_RECOIL_DATA);
 	}
 
 	for( j = 0; j < 2; j++ )
@@ -649,9 +718,7 @@ void EV_FireShotGunSingle( event_args_t *args )
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( SHOTGUN_FIRE, 0 );
 
-		V_PunchAxis(0, -gEngfuncs.pfnRandomFloat(100.0f, 120.0f), 52.0f, 8.0f);
-		V_PunchAxis(1, gEngfuncs.pfnRandomFloat(-20.0f, 20.0f), 58.0f, 10.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-12.0f, 12.0f), 58.0f, 10.0f);
+		ApplyRecoil(SHOTGUN_SINGLE_RECOIL_DATA);
 	}
 
 	EV_GetDefaultShellInfo( args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 32, -12, 6 );
@@ -708,9 +775,7 @@ void EV_FireMP5( event_args_t *args )
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( MP5_FIRE1 + gEngfuncs.pfnRandomLong( 0, 2 ), 0 );
 
-		V_PunchAxis(0, -gEngfuncs.pfnRandomFloat(21.0f, 24.0f), 58.0f, 6.0f);
-		V_PunchAxis(1, gEngfuncs.pfnRandomFloat(-8.0f, 8.0f), 62.0f, 8.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-6.0f, 6.0f), 62.0f, 8.0f);
+		ApplyRecoil(MP5_RECOIL_DATA);
 	}
 
 	EV_GetDefaultShellInfo( args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 20, -12, 4 );
@@ -746,7 +811,7 @@ void EV_FireMP52( event_args_t *args )
 	if( EV_IsLocal( idx ) )
 	{
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( MP5_LAUNCH, 0 );
-		V_PunchAxis(0, -100.0f, 58.0f, 6.0f);
+		ApplyRecoil(MP5_GRENADE_RECOIL_DATA);
 	}
 
 	switch( gEngfuncs.pfnRandomLong( 0, 1 ) )
@@ -794,7 +859,7 @@ void EV_FirePython( event_args_t *args )
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( PYTHON_FIRE1, multiplayer ? 1 : 0 );
 
-		V_PunchAxis(0, -100.0f, 58.0f, 6.0f);
+		ApplyRecoil(PYTHON_RECOIL_DATA);
 	}
 
 	switch( gEngfuncs.pfnRandomLong( 0, 1 ) )
@@ -909,8 +974,8 @@ void EV_FireGauss( event_args_t *args )
 
 	if( EV_IsLocal( idx ) )
 	{
-		V_PunchAxis(0, -gEngfuncs.pfnRandomFloat(48.0f, 52.0f), 52.0f, 8.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-8.0f, 8.0f), 58.0f, 10.0f);
+		ApplyRecoil(GAUSS_RECOIL_DATA);
+
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( GAUSS_FIRE2, 0 );
 
 		if( m_fPrimaryFire == false )
@@ -1370,7 +1435,7 @@ void EV_FireRpg( event_args_t *args )
 	{
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( RPG_FIRE2, 0 );
 
-		V_PunchAxis(0, -120.0f, 52.0f, 12.0f);
+		ApplyRecoil(RPG_RECOIL_DATA);
 	}
 }
 //======================
@@ -1610,8 +1675,7 @@ void EV_HornetGunFire( event_args_t *args )
 	//Only play the weapon anims if I shot it.
 	if( EV_IsLocal( idx ) )
 	{
-		V_PunchAxis(0, -32.0f, 62.0f, 8.0f);
-		V_PunchAxis(2, gEngfuncs.pfnRandomFloat(-6.0f, 6.0f), 58.0f, 10.0f);
+		ApplyRecoil(HORNET_RECOIL_DATA);
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( HGUN_SHOOT, 0 );
 	}
 
