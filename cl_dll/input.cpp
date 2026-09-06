@@ -797,6 +797,9 @@ if active == 1 then we are 1) not playing back demos ( where our commands are ig
 2 ) we have finished signing on to server
 ================
 */
+
+extern vec3_t g_ev_punchangle;
+
 void DLLEXPORT CL_CreateMove( float frametime, struct usercmd_s *cmd, int active )
 {
 	float spd;
@@ -892,6 +895,8 @@ void DLLEXPORT CL_CreateMove( float frametime, struct usercmd_s *cmd, int active
 
 	gEngfuncs.GetViewAngles( (float *)viewangles );
 	// Set current view angles.
+
+	VectorAdd(viewangles, g_ev_punchangle, viewangles);
 
 	if( g_iAlive )
 	{
