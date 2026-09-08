@@ -87,6 +87,8 @@ public:
 
 	int m_voicePitch;
 
+	BOOL angry; //Bro all of my friends are DIEE!!!!!!!
+
 	EHANDLE m_hDead;
 
 	static const char *pAttackHitSounds[];
@@ -345,7 +347,7 @@ void CISlave::HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ISLAVE_AE_ZAP_POWERUP:
 		{
 			// speed up attack when on hard
-			if( g_iSkillLevel == SKILL_HARD )
+			if( g_iSkillLevel == SKILL_HARD || angry )
 				pev->framerate = 1.5;
 
 			UTIL_MakeAimVectors( pev->angles );
@@ -419,7 +421,10 @@ void CISlave::HandleAnimEvent( MonsterEvent_t *pEvent )
 			// STOP_SOUND( ENT( pev ), CHAN_WEAPON, "debris/zap4.wav" );
 			ApplyMultiDamage( pev, pev );
 
-			m_flNextAttack = gpGlobals->time + RANDOM_FLOAT( 0.5, 4.0 );
+			if (!angry)
+				m_flNextAttack = gpGlobals->time + RANDOM_FLOAT( 0.5, 4.0 );
+			else
+				m_flNextAttack = gpGlobals->time + RANDOM_FLOAT( 0.5, 1.0 );
 		}
 			break;
 		case ISLAVE_AE_ZAP_DONE:
@@ -460,6 +465,7 @@ BOOL CISlave::CheckRangeAttack2( float flDot, float flDist )
 	m_iBravery = 0;
 
 	CBaseEntity *pEntity = NULL;
+
 	while( ( pEntity = UTIL_FindEntityByClassname( pEntity, "monster_alien_slave" ) ) != NULL )
 	{
 		TraceResult tr;
@@ -483,7 +489,14 @@ BOOL CISlave::CheckRangeAttack2( float flDot, float flDist )
 			}
 		}
 	}
-	if( m_hDead != 0 )
+
+	if (m_iBravery < -2)
+	{
+		angry = TRUE;
+		return FALSE;
+	}
+
+	if( m_hDead != NULL )
 		return TRUE;
 	else
 		return FALSE;
@@ -596,7 +609,6 @@ Schedule_t	slSlaveAttack1[] =
 		bits_COND_CAN_MELEE_ATTACK1 |
 		bits_COND_HEAR_SOUND |
 		bits_COND_HEAVY_DAMAGE, 
-
 		bits_SOUND_DANGER,
 		"Slave Range Attack1"
 	},
@@ -647,7 +659,7 @@ Schedule_t *CISlave::GetSchedule( void )
 			return CBaseMonster::GetSchedule();
 		}
 
-		if( pev->health < 20 || m_iBravery < 0 )
+		if ( pev->health < 20 && !angry)
 		{
 			if( !HasConditions( bits_COND_CAN_MELEE_ATTACK1 ) )
 			{

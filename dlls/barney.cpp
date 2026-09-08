@@ -96,7 +96,6 @@ public:
 
 	BOOL m_fGunDrawn;
 	float m_painTime;
-	float m_checkAttackTime;
 	float m_nextAttackTime;
 	BOOL m_lastAttackCheck;
 	BOOL m_dead;
@@ -113,7 +112,6 @@ TYPEDESCRIPTION	CBarney::m_SaveData[] =
 {
 	DEFINE_FIELD( CBarney, m_fGunDrawn, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_painTime, FIELD_TIME ),
-	DEFINE_FIELD( CBarney, m_checkAttackTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_nextAttackTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_lastAttackCheck, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_dead, FIELD_BOOLEAN ),
@@ -325,25 +323,23 @@ void CBarney::SetYawSpeed( void )
 //=========================================================
 // CheckRangeAttack1
 //=========================================================
-BOOL CBarney::CheckRangeAttack1( float flDot, float flDist )
+BOOL CBarney::CheckRangeAttack1(float flDot, float flDist)
 {
-	if( flDist <= 1024.0f && flDot >= 0.5f )
+	if (flDist <= 1024.0f && flDot >= 0.5f)
 	{
-		if( gpGlobals->time > m_checkAttackTime )
-		{
-			TraceResult tr;
+		TraceResult tr;
 
-			Vector shootOrigin = pev->origin + Vector( 0.0f, 0.0f, 55.0f );
-			CBaseEntity *pEnemy = m_hEnemy;
-			Vector shootTarget = ( ( pEnemy->BodyTarget( shootOrigin ) - pEnemy->pev->origin ) + m_vecEnemyLKP );
-			UTIL_TraceLine( shootOrigin, shootTarget, dont_ignore_monsters, ENT( pev ), &tr );
-			m_checkAttackTime = gpGlobals->time + 1.0f;
-			if( tr.flFraction == 1.0f || ( tr.pHit != NULL && CBaseEntity::Instance( tr.pHit ) == pEnemy ) )
-				m_lastAttackCheck = TRUE;
-			else
-				m_lastAttackCheck = FALSE;
-			m_checkAttackTime = gpGlobals->time + 1.5f;
-		}
+		Vector shootOrigin = pev->origin + Vector(0.0f, 0.0f, 55.0f);
+		CBaseEntity* pEnemy = m_hEnemy;
+		Vector shootTarget = ((pEnemy->BodyTarget(shootOrigin) - pEnemy->pev->origin) + m_vecEnemyLKP);
+
+		UTIL_TraceLine(shootOrigin, shootTarget, dont_ignore_monsters, ENT(pev), &tr);
+
+		if (tr.flFraction == 1.0f || (tr.pHit != NULL && CBaseEntity::Instance(tr.pHit) == pEnemy))
+			m_lastAttackCheck = TRUE;
+		else
+			m_lastAttackCheck = FALSE;
+
 		return m_lastAttackCheck;
 	}
 	return FALSE;
