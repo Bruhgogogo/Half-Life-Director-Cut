@@ -72,12 +72,12 @@
       <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="08d429e8-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="a7585058-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"08d429e8-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"a7585058-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -113,14 +113,14 @@
       <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="08d429e8-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT="a7585058-dirty";XASH_BUILD_BRANCH="custom/director-cut";CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"08d429e8-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CLIENT_WEAPONS;CROWBAR_FIX_RAPID_CROWBAR;SPEAKABLE_TARGETS;_CRT_SILENCE_NONCONFORMING_TGMATH_H;HAVE_TGMATH_H;XASH_BUILD_COMMIT=\"a7585058-dirty\";XASH_BUILD_BRANCH=\"custom/director-cut\";CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>F:\Projects\Half-Life-Director-Cut\game_shared\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>

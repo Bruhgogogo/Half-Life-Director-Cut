@@ -30,16 +30,19 @@
 #include "monsters.h"
 #include "weapons.h"
 #include "effects.h"
+#include "explode.h"
 
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 
-#define TURRET_SHOTS	2
-#define TURRET_RANGE	(100 * 12)
+constexpr float TURRET_SHOTS			= 2;
+constexpr float TURRET_RANGE			= (100 * 12);
+constexpr float TURRET_TURNRATE			= 30;			//angles per 0.1 second
+constexpr float TURRET_MAXWAIT			= 15;			// seconds turret will stay active w/o a target
+constexpr float TURRET_MAXSPIN			= 5;			// seconds turret barrel will spin w/o a target
+constexpr float TURRET_MACHINE_VOLUME	= 0.5;
+constexpr int   SENTERY_DEATH_EXPLODE	= 100;			// The damage that deal when some alive thing in the radius of explosion
+
 #define TURRET_SPREAD	Vector( 0, 0, 0 )
-#define TURRET_TURNRATE	30		//angles per 0.1 second
-#define TURRET_MAXWAIT	15		// seconds turret will stay active w/o a target
-#define TURRET_MAXSPIN	5		// seconds turret barrel will spin w/o a target
-#define TURRET_MACHINE_VOLUME	0.5
 
 typedef enum
 {
@@ -549,6 +552,14 @@ void CBaseTurret::ActiveThink( void )
 	// fire the gun
 	if( m_iSpin && ( ( fAttack ) || ( m_fBeserk ) ) )
 	{
+		//move the gun
+		if (m_fBeserk)
+		{
+			m_vecGoalAngles.y = RANDOM_FLOAT(0, 360);
+			m_vecGoalAngles.x = RANDOM_FLOAT(0, 90) - 90 * m_iOrientation;
+			TakeDamage(pev, pev, 1, DMG_GENERIC); // don't beserk forever
+		}
+
 		Vector vecSrc, vecAng;
 		GetAttachment( 0, vecSrc, vecAng );
 		SetTurretAnim( TURRET_ANIM_FIRE );
@@ -559,18 +570,7 @@ void CBaseTurret::ActiveThink( void )
 		SetTurretAnim( TURRET_ANIM_SPIN );
 	}
 
-	//move the gun
-	if( m_fBeserk )
-	{
-		if( RANDOM_LONG( 0, 9 ) == 0 )
-		{
-			m_vecGoalAngles.y = RANDOM_FLOAT( 0, 360 );
-			m_vecGoalAngles.x = RANDOM_FLOAT( 0, 90 ) - 90 * m_iOrientation;
-			TakeDamage( pev, pev, 1, DMG_GENERIC ); // don't beserk forever
-			return;
-		}
-	} 
-	else if( fEnemyVisible )
+	if( fEnemyVisible && !m_fBeserk )
 	{
 		if( vec.y > 360 )
 			vec.y -= 360;
@@ -610,8 +610,11 @@ void CBaseTurret::ActiveThink( void )
 		m_vecGoalAngles.x = vec.x;
 	}
 
-	SpinUpCall();
-	MoveTurret();
+	if ( !m_fBeserk )
+	{
+		SpinUpCall();
+		MoveTurret();
+	}
 }
 
 void CTurret::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
@@ -1294,7 +1297,10 @@ void CSentry::SentryDeath( void )
 
 	if( m_fSequenceFinished && pev->dmgtime + 5 < gpGlobals->time )
 	{
-		pev->framerate = 0;
+		// Surprise!
+		ExplosionCreate(pev->origin, pev->angles, ENT(pev), SENTERY_DEATH_EXPLODE, TRUE);
+		UTIL_Remove(this);
+
 		SetThink( NULL );
 	}
 }
