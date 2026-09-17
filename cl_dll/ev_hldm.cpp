@@ -138,13 +138,13 @@ struct WeaponRecoilData
 #define MP5_GRENADE_RECOIL_DATA WeaponRecoilData(-59.0f, -59.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 
 // ====================== PYTHON (.357) ======================
-#define PYTHON_RECOIL_DATA WeaponRecoilData(-46.0f, -49.0f, 45.6f, 4.8f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+#define PYTHON_RECOIL_DATA WeaponRecoilData(-58.0f, -49.0f, 45.6f, 4.8f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 
 // ====================== GAUSS ======================
 #define GAUSS_RECOIL_DATA WeaponRecoilData(-25.0f, -27.0f, 40.8f, 6.0f, 1.5f, -1.5f, 0.0f, 0.0f, 6.0f, -6.0f, 34.8f, 7.2f)
 
 // ====================== RPG ======================
-#define RPG_RECOIL_DATA WeaponRecoilData(-59.0f, -59.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+#define RPG_RECOIL_DATA WeaponRecoilData(-64.0f, -59.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 
 // ====================== HORNET ======================
 #define HORNET_RECOIL_DATA WeaponRecoilData(-17.0f, -17.0f, 46.8f, 6.0f, 1.5f, -1.5f, 0.0f, 0.0f, 5.0f, -5.0f, 34.8f, 6.0f)
