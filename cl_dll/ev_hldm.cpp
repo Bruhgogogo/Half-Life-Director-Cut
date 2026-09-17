@@ -126,28 +126,28 @@ struct WeaponRecoilData
 };
 
 // ====================== GLOCK ======================
-#define GLOCK1_RECOIL_DATA WeaponRecoilData(-50.0f, -54.0f, 43.2f, 6.0f, 21.0f, -21.0f, 37.2f, 7.2f, 14.0f, -14.0f, 37.2f, 7.2f)
-#define GLOCK2_RECOIL_DATA WeaponRecoilData(-50.0f, -54.0f, 48.0f, 6.0f, 25.0f, -25.0f, 40.8f, 7.2f, 16.0f, -16.0f, 40.8f, 7.2f)
+#define GLOCK1_RECOIL_DATA WeaponRecoilData(-25.0f, -27.0f, 43.2f, 6.0f, 10.5f, -10.5f, 37.2f, 7.2f, 7.0f, -7.0f, 37.2f, 7.2f)
+#define GLOCK2_RECOIL_DATA WeaponRecoilData(-25.0f, -27.0f, 48.0f, 6.0f, 12.5f, -12.5f, 40.8f, 7.2f, 8.0f, -8.0f, 40.8f, 7.2f)
 
 // ====================== SHOTGUN ======================
-#define SHOTGUN_DOUBLE_RECOIL_DATA WeaponRecoilData(-92.0f, -158.0f, 33.6f, 6.0f, 33.0f, -33.0f, 25.2f, 7.2f, 20.0f, -20.0f, 25.2f, 7.2f)
-#define SHOTGUN_SINGLE_RECOIL_DATA WeaponRecoilData(-68.0f, -118.0f, 45.6f, 6.0f, 23.0f, -23.0f, 34.8f, 7.2f, 16.0f, -16.0f, 34.8f, 7.2f)
+#define SHOTGUN_DOUBLE_RECOIL_DATA WeaponRecoilData(-46.0f, -79.0f, 33.6f, 6.0f, 16.5f, -16.5f, 25.2f, 7.2f, 10.0f, -10.0f, 25.2f, 7.2f)
+#define SHOTGUN_SINGLE_RECOIL_DATA WeaponRecoilData(-34.0f, -59.0f, 45.6f, 6.0f, 11.5f, -11.5f, 34.8f, 7.2f, 8.0f, -8.0f, 34.8f, 7.2f)
 
 // ====================== MP5 ======================
-#define MP5_RECOIL_DATA WeaponRecoilData(-23.0f, -26.0f, 45.6f, 4.8f, 11.0f, -11.0f, 37.2f, 6.0f, 10.0f, -10.0f, 37.2f, 6.0f)
-#define MP5_GRENADE_RECOIL_DATA WeaponRecoilData(-118.0f, -118.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+#define MP5_RECOIL_DATA WeaponRecoilData(-11.5f, -13.0f, 45.6f, 4.8f, 5.5f, -5.5f, 37.2f, 6.0f, 5.0f, -5.0f, 37.2f, 6.0f)
+#define MP5_GRENADE_RECOIL_DATA WeaponRecoilData(-59.0f, -59.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 
 // ====================== PYTHON (.357) ======================
-#define PYTHON_RECOIL_DATA WeaponRecoilData(-92.0f, -98.0f, 45.6f, 4.8f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+#define PYTHON_RECOIL_DATA WeaponRecoilData(-46.0f, -49.0f, 45.6f, 4.8f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 
 // ====================== GAUSS ======================
-#define GAUSS_RECOIL_DATA WeaponRecoilData(-50.0f, -54.0f, 40.8f, 6.0f, 3.0f, -3.0f, 0.0f, 0.0f, 12.0f, -12.0f, 34.8f, 7.2f)
+#define GAUSS_RECOIL_DATA WeaponRecoilData(-25.0f, -27.0f, 40.8f, 6.0f, 1.5f, -1.5f, 0.0f, 0.0f, 6.0f, -6.0f, 34.8f, 7.2f)
 
 // ====================== RPG ======================
-#define RPG_RECOIL_DATA WeaponRecoilData(-118.0f, -118.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+#define RPG_RECOIL_DATA WeaponRecoilData(-59.0f, -59.0f, 40.8f, 8.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 
 // ====================== HORNET ======================
-#define HORNET_RECOIL_DATA WeaponRecoilData(-34.0f, -34.0f, 46.8f, 6.0f, 3.0f, -3.0f, 0.0f, 0.0f, 10.0f, -10.0f, 34.8f, 6.0f)
+#define HORNET_RECOIL_DATA WeaponRecoilData(-17.0f, -17.0f, 46.8f, 6.0f, 1.5f, -1.5f, 0.0f, 0.0f, 5.0f, -5.0f, 34.8f, 6.0f)
 
 static void ApplyRecoil(const WeaponRecoilData& data)
 {
